@@ -12,6 +12,8 @@
  * Requires PHP:      7.4
  */
 
+use EDD_ZarinPal\Plugin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -44,3 +46,27 @@ define( 'EDD_ZARINPAL_PATH', plugin_dir_path( __FILE__ ) );
  * @since 1.0.0
  */
 define( 'EDD_ZARINPAL_URL', plugin_dir_url( __FILE__ ) );
+
+// Require composer's autoload.
+require_once EDD_ZARINPAL_PATH . 'vendor/autoload.php';
+
+/**
+ * Loads the plugin textdomain.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function load_edd_zarinpal_textdomain() {
+
+	load_plugin_textdomain(
+		'edd-zarinpal',
+		false,
+		dirname( plugin_basename( EDD_ZARINPAL_FILE ) ) . '/languages/'
+	);
+}
+
+add_action( 'init', 'load_edd_zarinpal_textdomain' );
+
+// Hello, friend!
+Plugin::get_instance();

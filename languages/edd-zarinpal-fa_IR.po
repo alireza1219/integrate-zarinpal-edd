@@ -4,75 +4,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EDD ZarinPal 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/alireza1219/edd-zarinpal/issues\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2025-02-16T16:44:35+00:00\n"
+"PO-Revision-Date: 2025-02-16 20:43+0330\n"
+"Last-Translator: Alireza ‌Barani <baranali02@gmail.com>\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-16T16:44:35+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: Poedit 3.5\n"
 "X-Domain: edd-zarinpal\n"
 
 #. Plugin Name of the plugin
 #: edd-zarinpal.php
 msgid "EDD ZarinPal"
-msgstr ""
+msgstr "درگاه پرداخت زرین‌پال برای EDD"
 
 #. Plugin URI of the plugin
 #: edd-zarinpal.php
 msgid "https://github.com/alireza1219/edd-zarinpal/issues"
-msgstr ""
+msgstr "https://github.com/alireza1219/edd-zarinpal/issues"
 
 #. Description of the plugin
 #: edd-zarinpal.php
 msgid "Zarinpal integration with Easy Digital Downloads."
-msgstr ""
+msgstr "درگاه پرداخت زرین‌پال را با پلتفرم محبوب Easy Digital Downloads یکپارچه کنید."
 
 #. Author of the plugin
 #: edd-zarinpal.php
 msgid "Alireza Barani"
-msgstr ""
+msgstr "علیرضا بارانی"
 
 #. Author URI of the plugin
 #: edd-zarinpal.php
 msgid "https://alireza1219.ir"
-msgstr ""
+msgstr "https://alireza1219.ir"
 
-#: src/Admin/Settings.php:93
-#: src/Admin/Settings.php:94
+#: src/Admin/Settings.php:93 src/Admin/Settings.php:94
 #: src/Admin/Settings.php:169
 msgid "ZarinPal"
-msgstr ""
+msgstr "زرین‌پال"
 
 #: src/Admin/Settings.php:112
 msgid "ZarinPal Merchant ID"
-msgstr ""
+msgstr "شناسه مرچنت زرین‌پال"
 
 #: src/Admin/Settings.php:113
 msgid "Enter your ZarinPal Merchant ID here."
-msgstr ""
+msgstr "شناسه مرچنت درگاه پرداخت زرین پال را در اینجا وارد کنید."
 
 #: src/Admin/Settings.php:119
 msgid "Success URL"
-msgstr ""
+msgstr "آدرس پرداخت‌های موفقیت‌آمیز"
 
 #: src/Admin/Settings.php:120
 msgid "ZarinPal payment success callback URL."
-msgstr ""
+msgstr "آدرس بازگشتی پرداخت‌های موفق زرین‌پال را تعیین کنید."
 
 #: src/Admin/Settings.php:126
 msgid "Failed URL"
-msgstr ""
+msgstr "آدرس بازگشتی پرداخت‌های ناموفق"
 
 #: src/Admin/Settings.php:127
 msgid "ZarinPal payment failure callback URL."
-msgstr ""
+msgstr "آدرس بازگشتی پرداخت‌های ناموفق زرین‌پال را تعیین کنید."
 
 #: src/Admin/Settings.php:133
 msgid "Success Message"
-msgstr ""
+msgstr "پیام پرداخت موفقیت‌آمیز"
 
 #: src/Admin/Settings.php:138
 msgid "Failed Message"
-msgstr ""
+msgstr "پیام پرداخت ناموفق"
