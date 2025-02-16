@@ -1,0 +1,9 @@
+{
+    "cSpell.ignoreWords": [
+        "ABSPATH",
+        "phpcs"
+    ],
+    "intelephense.environment.includePaths": [
+        "../easy-digital-downloads"
+    ],
+}

@@ -1,0 +1,30 @@
+{
+    "name": "alireza1219/edd-zarinpal",
+    "description": "Zarinpal integration with Easy Digital Downloads.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alireza Barani",
+            "email": "baranali02@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "EDD_ZarinPal\\": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+        "lint": "phpcs --standard=phpcs.xml.dist"
+    }
+}
