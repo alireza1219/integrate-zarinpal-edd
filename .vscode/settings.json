@@ -1,7 +1,8 @@
 {
     "cSpell.ignoreWords": [
         "ABSPATH",
-        "phpcs"
+        "phpcs",
+        "zaringate"
     ],
     "intelephense.environment.includePaths": [
         "../easy-digital-downloads"

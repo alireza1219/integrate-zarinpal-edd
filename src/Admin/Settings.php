@@ -16,6 +16,15 @@ class Settings {
 	const MERCHANT_SETTINGS_KEY = 'zarinpal_merchant_id';
 
 	/**
+	 * The setting key for the ZarinGate.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const ZARINGATE_SETTINGS_KEY = 'zarinpal_zaringate';
+
+	/**
 	 * The setting key for the successful payment callback url.
 	 *
 	 * @since 1.0.0
@@ -110,6 +119,11 @@ class Settings {
 	public function register_gateway_settings( $gateway_settings ) {
 
 		$zarinpal_settings = [
+			self::ZARINGATE_SETTINGS_KEY   => [
+				'id'   => self::ZARINGATE_SETTINGS_KEY,
+				'name' => __( 'Enable ZarinGate', 'edd-zarinpal' ),
+				'type' => 'checkbox_toggle',
+			],
 			self::MERCHANT_SETTINGS_KEY    => [
 				'id'   => self::MERCHANT_SETTINGS_KEY,
 				'name' => __( 'ZarinPal Merchant ID', 'edd-zarinpal' ),
