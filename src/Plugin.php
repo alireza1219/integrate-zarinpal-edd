@@ -3,6 +3,7 @@
 namespace EDD_ZarinPal;
 
 use EDD_ZarinPal\Admin\Settings;
+use EDD_ZarinPal\Gateway\Gateway;
 
 final class Plugin {
 
@@ -32,6 +33,7 @@ final class Plugin {
 	public function setup() {
 
 		new Settings();
+		new Gateway();
 
 		return $this;
 	}
