@@ -18,7 +18,7 @@ class Gateway {
 	const NONCE_KEY = 'edd-gateway';
 
 	/**
-	 * The meta key for strong payment authority.
+	 * The meta key for storing payment authority.
 	 *
 	 * @since 1.0.0
 	 *
@@ -71,6 +71,8 @@ class Gateway {
 	 */
 	public function process_payment( $payment_data ) {
 
+		Helpers::log_info( esc_html__( 'ZarinPal payment process has begun.', 'edd-zarinpal' ) );
+
 		// Make PHP interpreter happy in rare situations.
 		$payment_data = is_array( $payment_data ) ? $payment_data : [];
 
@@ -79,6 +81,8 @@ class Gateway {
 
 		// Nonce verification.
 		if ( ! wp_verify_nonce( $nonce, self::NONCE_KEY ) ) {
+
+			Helpers::log_info( esc_html__( 'ZarinPal payment process was stopped due to a nonce verification problem.', 'edd-zarinpal' ) );
 
 			wp_die(
 				esc_html__( 'Nonce verification has failed', 'edd-zarinpal' ),
@@ -199,6 +203,8 @@ class Gateway {
 				]
 			);
 		}
+
+		Helpers::log_info( esc_html__( 'ZarinPal payment process has been completed successfully.', 'edd-zarinpal' ) );
 
 		// Redirect the user to payment page.
 		$authority    = $request_result['Authority'];

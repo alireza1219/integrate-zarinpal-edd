@@ -79,7 +79,7 @@ class Helpers {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $received_data     Received data to hash.
+	 * @param string $received_data Received data to hash.
 	 * @param string $received_hash The known hash for the data.
 	 *
 	 * @return bool True if the received data are valid.
