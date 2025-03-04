@@ -25,42 +25,6 @@ class Settings {
 	const ZARINGATE_SETTINGS_KEY = 'zarinpal_zaringate';
 
 	/**
-	 * The setting key for the successful payment callback url.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const SUCCESS_URL_SETTINGS_KEY = 'zarinpal_success_url';
-
-	/**
-	 * The setting key for the failed payment callback url.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const FAILED_URL_SETTINGS_KEY = 'zarinpal_failed_url';
-
-	/**
-	 * The setting key for the successful payment message.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const SUCCESS_MSG_SETTINGS_KEY = 'zarinpal_success_message';
-
-	/**
-	 * The setting key for the failed payment message.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const FAILED_MSG_SETTINGS_KEY = 'zarinpal_failed_message';
-
-	/**
 	 * Settings class constructor.
 	 *
 	 * @since 1.0.0
@@ -119,43 +83,17 @@ class Settings {
 	public function register_gateway_settings( $gateway_settings ) {
 
 		$zarinpal_settings = [
-			self::ZARINGATE_SETTINGS_KEY   => [
+			self::ZARINGATE_SETTINGS_KEY => [
 				'id'   => self::ZARINGATE_SETTINGS_KEY,
 				'name' => __( 'Enable ZarinGate', 'edd-zarinpal' ),
 				'type' => 'checkbox_toggle',
 			],
-			self::MERCHANT_SETTINGS_KEY    => [
+			self::MERCHANT_SETTINGS_KEY  => [
 				'id'   => self::MERCHANT_SETTINGS_KEY,
 				'name' => __( 'ZarinPal Merchant ID', 'edd-zarinpal' ),
 				'desc' => __( 'Enter your ZarinPal Merchant ID here.', 'edd-zarinpal' ),
 				'type' => 'text',
 				'size' => 'regular',
-			],
-			self::SUCCESS_URL_SETTINGS_KEY => [
-				'id'   => self::SUCCESS_URL_SETTINGS_KEY,
-				'name' => __( 'Success URL', 'edd-zarinpal' ),
-				'desc' => __( 'ZarinPal payment success callback URL.', 'edd-zarinpal' ),
-				'type' => 'text',
-				'size' => 'regular',
-			],
-			self::FAILED_URL_SETTINGS_KEY  => [
-				'id'   => self::FAILED_URL_SETTINGS_KEY,
-				'name' => __( 'Failed URL', 'edd-zarinpal' ),
-				'desc' => __( 'ZarinPal payment failure callback URL.', 'edd-zarinpal' ),
-				'type' => 'text',
-				'size' => 'regular',
-			],
-			self::SUCCESS_MSG_SETTINGS_KEY => [
-				'id'   => self::SUCCESS_MSG_SETTINGS_KEY,
-				'name' => __( 'Success Message', 'edd-zarinpal' ),
-				'type' => 'rich_editor',
-				'size' => 'small',
-			],
-			self::FAILED_MSG_SETTINGS_KEY  => [
-				'id'   => self::FAILED_MSG_SETTINGS_KEY,
-				'name' => __( 'Failed Message', 'edd-zarinpal' ),
-				'type' => 'rich_editor',
-				'size' => 'small',
 			],
 		];
 
