@@ -124,9 +124,12 @@ class API {
 		// Setup request arguments.
 		$args = [
 			'method'     => 'POST',
-			'body'       => $params,
+			'body'       => json_encode( $params ),
 			'user-agent' => 'ZarinPal Rest Api v1',
 			'timeout'    => $timeout,
+			'headers'    => [
+				'content-type' => 'application/json',
+			],
 		];
 
 		// Log the request.
