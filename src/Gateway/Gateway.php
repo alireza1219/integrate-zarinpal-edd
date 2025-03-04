@@ -27,6 +27,15 @@ class Gateway {
 	const AUTHORITY_META_KEY = 'zarinpal_order_authority';
 
 	/**
+	 * The meta key for storing payment authority.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const REF_ID_META_KEY = 'zarinpal_order_reference_id';
+
+	/**
 	 * The default Rial currency symbol, provided by EDD.
 	 *
 	 * @since 1.0.0
@@ -34,6 +43,33 @@ class Gateway {
 	 * @var string
 	 */
 	const IRR_SYMBOL = 'RIAL';
+
+	/**
+	 * The key for the pending orders in EDD.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const EDD_PENDING_STATUS_KEY = 'pending';
+
+	/**
+	 * The key for the completed orders in EDD.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const EDD_COMPLETED_STATUS_KEY = 'complete';
+
+	/**
+	 * The key for the failed orders in EDD.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const EDD_FAILED_STATUS_KEY = 'failed';
 
 	/**
 	 * Gateway class constructor.
@@ -58,6 +94,7 @@ class Gateway {
 
 		add_action( sprintf( 'edd_%s_cc_form', Plugin::SLUG ), '__return_false' ); // ZarinPal does not require a CC form.
 		add_action( 'edd_gateway_' . Plugin::SLUG, [ $this, 'process_payment' ] );
+		add_action( 'init', [ $this, 'process_verification' ] );
 	}
 
 	/**
@@ -100,7 +137,7 @@ class Gateway {
 			'downloads'    => $payment_data['downloads'],
 			'cart_details' => $payment_data['cart_details'],
 			'user_info'    => $payment_data['user_info'],
-			'status'       => 'pending',
+			'status'       => self::EDD_PENDING_STATUS_KEY,
 			'gateway'      => Plugin::SLUG,
 		];
 
@@ -116,11 +153,7 @@ class Gateway {
 				$order_data
 			);
 
-			edd_send_back_to_checkout(
-				[
-					'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG,
-				]
-			);
+			edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
 		}
 
 		// Prepare the ZarinPal API.
@@ -174,11 +207,7 @@ class Gateway {
 				$order_id
 			);
 
-			edd_send_back_to_checkout(
-				[
-					'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG,
-				]
-			);
+			edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
 		}
 
 		// Handle statues other than 100.
@@ -197,11 +226,7 @@ class Gateway {
 				$order_id
 			);
 
-			edd_send_back_to_checkout(
-				[
-					'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG,
-				]
-			);
+			edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
 		}
 
 		Helpers::log_info( esc_html__( 'ZarinPal payment process has been completed successfully.', 'edd-zarinpal' ) );
@@ -212,5 +237,145 @@ class Gateway {
 		edd_update_payment_meta( $order_id, self::AUTHORITY_META_KEY, $authority );
 		wp_redirect( $redirect_url );
 		edd_die();
+	}
+
+	/**
+	 * Processes the ZarinPal payment verification requests.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function process_verification() {
+
+		if ( ! isset( $_GET['edd-listener'] ) || $_GET['edd-listener'] !== 'ZARINPAL' ) {
+			return;
+		}
+
+		Helpers::log_info( esc_html__( 'ZarinPal payment verification has begun.', 'edd-zarinpal' ) );
+
+		// All required arguments must be set and not empty.
+		$required_args = [ 'Order', 'Verification', 'Authority' ];
+		foreach ( $required_args as $key ) {
+			if ( ! isset( $_GET[ $key ] ) || empty( $_GET[ $key ] ) ) {
+
+				Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to the missing required parameters.', 'edd-zarinpal' ) );
+
+				return;
+			}
+		}
+
+		// Retrieve, sanitize and store the GET parameters for further use.
+		$order_id          = edd_sanitize_key( (int) $_GET['Order'] );
+		$verification_hash = edd_sanitize_key( $_GET['Verification'] );
+		$authority         = edd_sanitize_key( $_GET['Authority'] );
+
+		// Do nothing when the hash computed from the order ID differs from the received hash.
+		if ( ! Helpers::verify_hash( $order_id, $verification_hash ) ) {
+
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a mismatch in the verification hash.', 'edd-zarinpal' ) );
+
+			return;
+		}
+
+		$order = edd_get_order( $order_id );
+
+		if ( ! $order ) {
+
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a missing order record.', 'edd-zarinpal' ) );
+
+			return;
+		}
+
+		if ( $order->status !== self::EDD_PENDING_STATUS_KEY ) {
+
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped because the order is undergoing re-verification.', 'edd-zarinpal' ) );
+
+			return;
+		}
+
+		$amount = (int) $order->total;
+		if ( $order->currency === self::IRR_SYMBOL ) {
+			// ZarinPal's default currency is set to IRT (Iranian Toman).
+			$amount = $amount / 10;
+		}
+
+		$request_body = [
+			'Authority' => $authority,
+			'Amount'    => $amount,
+		];
+
+		$zarinpal_api = new API( edd_get_option( Settings::MERCHANT_SETTINGS_KEY ) );
+		$zarinpal_api->set_order_id( $order_id );
+
+		// Verify the payment via the ZarinPal API.
+		$request_result = $zarinpal_api->verify_payment( $request_body );
+
+		// The payment verification was unsuccessful.
+		if (
+			! $request_result ||
+			! in_array( (int) $request_result['Status'], [ 100, 101 ], true ) ||
+			empty( $request_result['RefID'] )
+		) {
+
+			// Note that the $request_result can have a value of false.
+			$status = $request_result['Status'] ?? -1219;
+
+			$failure_message = esc_html__( 'ZarinPal payment verification failed!', 'edd-zarinpal' );
+			$failure_reason  = sprintf(
+				/* translators: %1$s Error Code, %2$s: Parsed error message. */
+				esc_html__( 'Error Code %1$s, %2$s', 'edd-zarinpal' ),
+				$status,
+				Helpers::parse_error_message( $status )
+			);
+
+			Helpers::log_error(
+				$failure_message,
+				esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ),
+				true,
+				$failure_reason,
+				$order_id
+			);
+
+			// Mark this order as failed.
+			edd_update_payment_status( $order_id, self::EDD_FAILED_STATUS_KEY );
+
+			// Include a note explaining the reason for the payment failure.
+			edd_insert_payment_note( $order_id, sprintf( '%s %s', $failure_message, $failure_reason ) );
+		} else {
+
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification has been completed successfully.', 'edd-zarinpal' ) );
+
+			$reference_id = $request_result['RefID'];
+
+			// Mark this order as completed.
+			edd_update_payment_status( $order_id, self::EDD_COMPLETED_STATUS_KEY );
+
+			edd_update_payment_meta( $order_id, self::REF_ID_META_KEY, $reference_id );
+
+			// Include a note with reference ID.
+			edd_insert_payment_note(
+				$order_id,
+				sprintf(
+					/* translators: %1$s Reference ID, %2$s: Authority. */
+					esc_html__( 'ZarinPal payment was successful. Reference ID: %1$s, Authority: %2$s.', 'edd-zarinpal' ),
+					$reference_id,
+					$authority
+				)
+			);
+		}
+
+		/**
+		 * Fires when a Zarinpal payment verification process completes.
+		 *
+		 * This action allows developers to handle custom actions,
+		 * such as logging errors, notifying the customer, or triggering custom workflows.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param int    $order_id The ID of the order.
+		 * @param object $order    The order object containing relevant details.
+		 */
+		do_action( 'edd_zarinpal_payment_verification_completed', $order_id, edd_get_order( $order_id ) );
 	}
 }
