@@ -95,6 +95,7 @@ class Gateway {
 		add_action( sprintf( 'edd_%s_cc_form', Plugin::SLUG ), '__return_false' ); // ZarinPal does not require a CC form.
 		add_action( 'edd_gateway_' . Plugin::SLUG, [ $this, 'process_payment' ] );
 		add_action( 'init', [ $this, 'process_verification' ] );
+		add_filter( 'allowed_redirect_hosts', [ $this, 'allow_redirect' ], 10 );
 	}
 
 	/**
@@ -235,7 +236,7 @@ class Gateway {
 		$authority    = $request_result['Authority'];
 		$redirect_url = API::get_payment_page( $authority );
 		edd_update_payment_meta( $order_id, self::AUTHORITY_META_KEY, $authority );
-		wp_redirect( $redirect_url );
+		edd_redirect( $redirect_url );
 		edd_die();
 	}
 
@@ -377,5 +378,23 @@ class Gateway {
 		 * @param object $order    The order object containing relevant details.
 		 */
 		do_action( 'edd_zarinpal_payment_verification_completed', $order_id, edd_get_order( $order_id ) );
+	}
+
+	/**
+	 * Allow wp_safe_redirect to redirect to ZarinPal.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $redirects The list of urls that wp_safe_redirect can redirect to.
+	 *
+	 * @return array
+	 */
+	public function allow_redirect( $redirects ) {
+
+		$redirects[] = 'zarinpal.com';
+		$redirects[] = 'www.zarinpal.com';
+		$redirects[] = 'sandbox.alireza1219.ir';
+
+		return $redirects;
 	}
 }
