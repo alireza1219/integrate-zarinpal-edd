@@ -5,6 +5,15 @@ namespace EDD_ZarinPal;
 class Helpers {
 
 	/**
+	 * The option key that stores the salt.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const SALT_OPTION_KEY = 'edd-zarinpal-verification-salt';
+
+	/**
 	 * Logs an informational message.
 	 *
 	 * @since 1.0.0
@@ -71,7 +80,8 @@ class Helpers {
 	 */
 	public static function generate_hash( $data ) {
 
-		return wp_hash( (string) $data, wp_salt() );
+		$salt = self::get_salt();
+		return hash_hmac( 'md5', (string) $data, $salt );
 	}
 
 	/**
@@ -157,5 +167,29 @@ class Helpers {
 
 			return esc_attr__( 'An unknown error occurred while connecting to the ZarinPal gateway.', 'edd-zarinpal' );
 		}
+	}
+
+	/**
+	 * Get the salt.
+	 *
+	 * The wp_salt() function is not reliable and can be externally manipulated,
+	 * which may result in payment verifications failing.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string The stored salt.
+	 */
+	private static function get_salt() {
+
+		$salt = get_option( self::SALT_OPTION_KEY, false );
+
+		// This is the first run, generate a salt and store it.
+		if ( ! $salt ) {
+
+			$salt = wp_generate_password( 64, true, true );
+			update_option( self::SALT_OPTION_KEY, $salt );
+		}
+
+		return $salt;
 	}
 }
