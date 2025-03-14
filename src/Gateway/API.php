@@ -5,6 +5,11 @@ namespace EDD_ZarinPal\Gateway;
 use EDD_ZarinPal\Admin\Settings;
 use EDD_ZarinPal\Helpers;
 
+/**
+ * ZarinPal API class.
+ *
+ * @since 1.0.0
+ */
 class API {
 
 	/**
@@ -124,7 +129,7 @@ class API {
 		// Setup request arguments.
 		$args = [
 			'method'     => 'POST',
-			'body'       => json_encode( $params ),
+			'body'       => wp_json_encode( $params ),
 			'user-agent' => 'ZarinPal Rest Api v1',
 			'timeout'    => $timeout,
 			'headers'    => [
@@ -200,7 +205,7 @@ class API {
 			return false;
 		}
 
-		// Get and decode response body
+		// Get and decode response body.
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body, true );
 
@@ -219,7 +224,7 @@ class API {
 			return false;
 		}
 
-		// Log successful request
+		// Log successful request.
 		Helpers::log_info(
 			sprintf(
 				/* translators: %s Current API action. */

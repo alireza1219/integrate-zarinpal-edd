@@ -3,6 +3,7 @@
         "ABSPATH",
         "Toman",
         "phpcs",
+        "unslash",
         "zaringate"
     ],
     "intelephense.environment.includePaths": [

@@ -23,7 +23,8 @@
         <include-pattern>*\.php$</include-pattern>
     </rule>
 
-    <rule ref="WordPress-Core">
+    <rule ref="WordPress">
+        <exclude name="Squiz.Commenting.FileComment.Missing" />
         <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
         <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
         <exclude name="WordPress.PHP.YodaConditions.NotYoda" />

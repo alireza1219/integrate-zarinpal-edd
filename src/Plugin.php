@@ -6,6 +6,11 @@ use EDD_ZarinPal\Admin\Settings;
 use EDD_ZarinPal\Frontend\Handler;
 use EDD_ZarinPal\Gateway\Gateway;
 
+/**
+ * Plugin class.
+ *
+ * @since 1.0.0
+ */
 final class Plugin {
 
 	/**

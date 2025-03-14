@@ -5,6 +5,11 @@ namespace EDD_ZarinPal\Frontend;
 use EDD_ZarinPal\Gateway\Gateway;
 use EDD_ZarinPal\Plugin;
 
+/**
+ * Payment verification handler in the front-end.
+ *
+ * @since 1.0.0
+ */
 class Handler {
 
 	/**

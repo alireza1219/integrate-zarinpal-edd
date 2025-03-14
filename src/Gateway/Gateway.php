@@ -6,6 +6,11 @@ use EDD_ZarinPal\Admin\Settings;
 use EDD_ZarinPal\Helpers;
 use EDD_ZarinPal\Plugin;
 
+/**
+ * Gateway class.
+ *
+ * @since 1.0.0
+ */
 class Gateway {
 
 	/**
@@ -103,7 +108,7 @@ class Gateway {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $payment_date All the payment data.
+	 * @param array $payment_data All the payment data.
 	 *
 	 * @return void
 	 */
@@ -249,6 +254,8 @@ class Gateway {
 	 */
 	public function process_verification() {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+
 		if ( ! isset( $_GET['edd-listener'] ) || $_GET['edd-listener'] !== 'ZARINPAL' ) {
 			return;
 		}
@@ -267,9 +274,13 @@ class Gateway {
 		}
 
 		// Retrieve, sanitize and store the GET parameters for further use.
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$order_id          = edd_sanitize_key( (int) $_GET['Order'] );
-		$verification_hash = edd_sanitize_key( $_GET['Verification'] );
-		$authority         = edd_sanitize_key( $_GET['Authority'] );
+		$verification_hash = edd_sanitize_key( wp_unslash( $_GET['Verification'] ) );
+		$authority         = edd_sanitize_key( wp_unslash( $_GET['Authority'] ) );
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 
 		// Do nothing when the hash computed from the order ID differs from the received hash.
 		if ( ! Helpers::verify_hash( $order_id, $verification_hash ) ) {

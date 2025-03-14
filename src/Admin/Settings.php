@@ -4,6 +4,11 @@ namespace EDD_ZarinPal\Admin;
 
 use EDD_ZarinPal\Plugin;
 
+/**
+ * Settings class.
+ *
+ * @since 1.0.0
+ */
 class Settings {
 
 	/**
@@ -133,15 +138,17 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param boolean $can_setup
+	 * @param boolean $is_setup Whether or not the gateway is setup.
 	 *
 	 * @return boolean True if the gateway's Merchant ID is set and has 36 characters; false otherwise.
 	 */
-	public function can_setup( $can_setup ) {
+	public function can_setup( $is_setup ) {
 
 		$gateway_merchant = edd_get_option( self::MERCHANT_SETTINGS_KEY, '' );
 
-		return ! empty( $gateway_merchant ) && strlen( $gateway_merchant ) === 36;
+		$is_setup = ! empty( $gateway_merchant ) && strlen( $gateway_merchant ) === 36;
+
+		return $is_setup;
 	}
 
 	/**
@@ -149,18 +156,20 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $url
+	 * @param string $gateway_settings_url The URL to the gateway settings.
 	 *
 	 * @return string The settings url.
 	 */
-	public function assign_settings_url( $url ) {
+	public function assign_settings_url( $gateway_settings_url ) {
 
-		return edd_get_admin_url(
+		$gateway_settings_url = edd_get_admin_url(
 			[
 				'page'    => 'edd-settings',
 				'tab'     => 'gateways',
 				'section' => Plugin::SLUG,
 			]
 		);
+
+		return $gateway_settings_url;
 	}
 }

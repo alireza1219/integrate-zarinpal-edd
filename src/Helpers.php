@@ -2,6 +2,11 @@
 
 namespace EDD_ZarinPal;
 
+/**
+ * Helpers class.
+ *
+ * @since 1.0.0
+ */
 class Helpers {
 
 	/**
@@ -30,7 +35,7 @@ class Helpers {
 			$message .= sprintf(
 				"\n%s:\n%s",
 				esc_html__( 'Context', 'edd-zarinpal' ),
-				print_r( $context, true )
+				print_r( $context, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			);
 		}
 
@@ -58,7 +63,7 @@ class Helpers {
 			$message .= sprintf(
 				"\n%s:\n%s",
 				esc_html__( 'Context', 'edd-zarinpal' ),
-				print_r( $context, true )
+				print_r( $context, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			);
 		}
 

@@ -5,11 +5,14 @@
  * Description:       Zarinpal integration with Easy Digital Downloads.
  * Author:            Alireza Barani
  * Author URI:        https://alireza1219.ir
+ * License:           GPL v2 or later
  * Version:           1.0.0
  * Text Domain:       edd-zarinpal
  * Domain Path:       /languages
  * Requires at least: 6.2
  * Requires PHP:      7.4
+ *
+ * @package           edd-zarinpal
  */
 
 use EDD_ZarinPal\Plugin;
