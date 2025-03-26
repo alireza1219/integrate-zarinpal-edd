@@ -1,9 +1,9 @@
 <?php
 
-namespace EDD_ZarinPal\Gateway;
+namespace Integrate_ZarinPal_EDD\Gateway;
 
-use EDD_ZarinPal\Admin\Settings;
-use EDD_ZarinPal\Helpers;
+use Integrate_ZarinPal_EDD\Admin\Settings;
+use Integrate_ZarinPal_EDD\Helpers;
 
 /**
  * ZarinPal API class.
@@ -106,8 +106,8 @@ class API {
 		if ( ! in_array( $action, self::VALID_ACTIONS, true ) ) {
 
 			Helpers::log_error(
-				esc_html__( 'Invalid ZarinPal API action provided!', 'edd-zarinpal' ),
-				esc_html__( 'ZarinPal API Action Error', 'edd-zarinpal' ),
+				esc_html__( 'Invalid ZarinPal API action provided!', 'integrate-zarinpal-edd' ),
+				esc_html__( 'ZarinPal API Action Error', 'integrate-zarinpal-edd' ),
 				false,
 				[ 'action' => $action ],
 				$this->order_id
@@ -141,7 +141,7 @@ class API {
 		Helpers::log_info(
 			sprintf(
 				/* translators: %s The current endpoint action. */
-				esc_html__( 'Making API request to %s endpoint', 'edd-zarinpal' ),
+				esc_html__( 'Making API request to %s endpoint', 'integrate-zarinpal-edd' ),
 				$action
 			),
 			false,
@@ -175,7 +175,7 @@ class API {
 
 			Helpers::log_error(
 				$response->get_error_message(),
-				esc_html__( 'ZarinPal API Request Failure', 'edd-zarinpal' ),
+				esc_html__( 'ZarinPal API Request Failure', 'integrate-zarinpal-edd' ),
 				false,
 				[ 'action' => $action ],
 				$this->order_id
@@ -191,10 +191,10 @@ class API {
 			Helpers::log_error(
 				sprintf(
 					/* translators: %d API HTTP response code. */
-					esc_html__( 'ZarinPal payment gateway returned HTTP status code %d', 'edd-zarinpal' ),
+					esc_html__( 'ZarinPal payment gateway returned HTTP status code %d', 'integrate-zarinpal-edd' ),
 					$status_code
 				),
-				esc_html__( 'ZarinPal API Status Error', 'edd-zarinpal' ),
+				esc_html__( 'ZarinPal API Status Error', 'integrate-zarinpal-edd' ),
 				false,
 				[
 					'action' => $action,
@@ -212,8 +212,8 @@ class API {
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
 
 			Helpers::log_error(
-				esc_html__( 'Failed to decode ZarinPal API response', 'edd-zarinpal' ),
-				esc_html__( 'JSON Decode Error', 'edd-zarinpal' ),
+				esc_html__( 'Failed to decode ZarinPal API response', 'integrate-zarinpal-edd' ),
+				esc_html__( 'JSON Decode Error', 'integrate-zarinpal-edd' ),
 				false,
 				[
 					'action' => $action,
@@ -228,7 +228,7 @@ class API {
 		Helpers::log_info(
 			sprintf(
 				/* translators: %s Current API action. */
-				esc_html__( 'Request to %s ZarinPal endpoint succeeded', 'edd-zarinpal' ),
+				esc_html__( 'Request to %s ZarinPal endpoint succeeded', 'integrate-zarinpal-edd' ),
 				$action
 			),
 			false,

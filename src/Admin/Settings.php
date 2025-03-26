@@ -1,8 +1,8 @@
 <?php
 
-namespace EDD_ZarinPal\Admin;
+namespace Integrate_ZarinPal_EDD\Admin;
 
-use EDD_ZarinPal\Plugin;
+use Integrate_ZarinPal_EDD\Plugin;
 
 /**
  * Settings class.
@@ -69,8 +69,8 @@ class Settings {
 	public function extend_payment_gateways( $gateways ) {
 
 		$gateways[ Plugin::SLUG ] = [
-			'admin_label'    => __( 'ZarinPal', 'edd-zarinpal' ),
-			'checkout_label' => __( 'ZarinPal', 'edd-zarinpal' ),
+			'admin_label'    => __( 'ZarinPal', 'integrate-zarinpal-edd' ),
+			'checkout_label' => __( 'ZarinPal', 'integrate-zarinpal-edd' ),
 		];
 
 		return $gateways;
@@ -90,13 +90,13 @@ class Settings {
 		$zarinpal_settings = [
 			self::ZARINGATE_SETTINGS_KEY => [
 				'id'   => self::ZARINGATE_SETTINGS_KEY,
-				'name' => __( 'Enable ZarinGate', 'edd-zarinpal' ),
+				'name' => __( 'Enable ZarinGate', 'integrate-zarinpal-edd' ),
 				'type' => 'checkbox_toggle',
 			],
 			self::MERCHANT_SETTINGS_KEY  => [
 				'id'   => self::MERCHANT_SETTINGS_KEY,
-				'name' => __( 'ZarinPal Merchant ID', 'edd-zarinpal' ),
-				'desc' => __( 'Enter your ZarinPal Merchant ID here.', 'edd-zarinpal' ),
+				'name' => __( 'ZarinPal Merchant ID', 'integrate-zarinpal-edd' ),
+				'desc' => __( 'Enter your ZarinPal Merchant ID here.', 'integrate-zarinpal-edd' ),
 				'type' => 'text',
 				'size' => 'regular',
 			],
@@ -109,7 +109,7 @@ class Settings {
 		 *
 		 * @param array $zarinpal_settings
 		 */
-		$zarinpal_settings = apply_filters( 'edd_zarinpal_settings', $zarinpal_settings );
+		$zarinpal_settings = apply_filters( 'integrate_zarinpal_edd_settings', $zarinpal_settings );
 
 		// Include the Zarinpal settings in gateway settings.
 		$gateway_settings[ Plugin::SLUG ] = $zarinpal_settings;
@@ -128,7 +128,7 @@ class Settings {
 	 */
 	public function register_gateway_section( $gateway_sections ) {
 
-		$gateway_sections[ Plugin::SLUG ] = __( 'ZarinPal', 'edd-zarinpal' );
+		$gateway_sections[ Plugin::SLUG ] = __( 'ZarinPal', 'integrate-zarinpal-edd' );
 
 		return $gateway_sections;
 	}

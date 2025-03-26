@@ -1,4 +1,4 @@
-=== EDD ZarinPal ===
+=== Integrate ZarinPal for EDD ===
 Contributors: alireza1219
 Tags: zarinpal, easy digital downloads, payment gateway, edd, ecommerce  
 Requires at least: 6.2

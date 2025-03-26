@@ -1,9 +1,9 @@
 <?php
 
-namespace EDD_ZarinPal\Frontend;
+namespace Integrate_ZarinPal_EDD\Frontend;
 
-use EDD_ZarinPal\Gateway\Gateway;
-use EDD_ZarinPal\Plugin;
+use Integrate_ZarinPal_EDD\Gateway\Gateway;
+use Integrate_ZarinPal_EDD\Plugin;
 
 /**
  * Payment verification handler in the front-end.
@@ -34,7 +34,7 @@ class Handler {
 	 */
 	public function hooks() {
 
-		add_action( 'edd_zarinpal_payment_verification_completed', [ $this, 'handle_payment_verification' ], 10, 2 );
+		add_action( 'integrate_zarinpal_edd_payment_verification_completed', [ $this, 'handle_payment_verification' ], 10, 2 );
 	}
 
 	/**

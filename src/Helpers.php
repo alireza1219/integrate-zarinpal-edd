@@ -1,6 +1,6 @@
 <?php
 
-namespace EDD_ZarinPal;
+namespace Integrate_ZarinPal_EDD;
 
 /**
  * Helpers class.
@@ -16,7 +16,7 @@ class Helpers {
 	 *
 	 * @var string
 	 */
-	const SALT_OPTION_KEY = 'edd-zarinpal-verification-salt';
+	const SALT_OPTION_KEY = 'integrate-zarinpal-edd-verification-salt';
 
 	/**
 	 * Logs an informational message.
@@ -34,7 +34,7 @@ class Helpers {
 		if ( ! empty( $context ) ) {
 			$message .= sprintf(
 				"\n%s:\n%s",
-				esc_html__( 'Context', 'edd-zarinpal' ),
+				esc_html__( 'Context', 'integrate-zarinpal-edd' ),
 				print_r( $context, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			);
 		}
@@ -57,12 +57,12 @@ class Helpers {
 	 */
 	public static function log_error( $message, $error_title = '', $store_error = false, $context = null, $log_parent = 0 ) {
 
-		$error_title = empty( $error_title ) ? esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ) : $error_title;
+		$error_title = empty( $error_title ) ? esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ) : $error_title;
 
 		if ( ! empty( $context ) ) {
 			$message .= sprintf(
 				"\n%s:\n%s",
-				esc_html__( 'Context', 'edd-zarinpal' ),
+				esc_html__( 'Context', 'integrate-zarinpal-edd' ),
 				print_r( $context, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			);
 		}
@@ -121,7 +121,7 @@ class Helpers {
 
 		if ( empty( $first_name ) && empty( $last_name ) ) {
 
-			return esc_html__( 'Not Available', 'edd-zarinpal' );
+			return esc_html__( 'Not Available', 'integrate-zarinpal-edd' );
 		}
 
 		return trim( "$first_name $last_name" );
@@ -137,32 +137,32 @@ class Helpers {
 	public static function parse_error_message( $code ) {
 
 		$error = [
-			'-1'  => esc_attr__( 'Incomplete information provided.', 'edd-zarinpal' ),
-			'-2'  => esc_attr__( 'Incorrect IP or merchant code.', 'edd-zarinpal' ),
-			'-3'  => esc_attr__( 'Payment with the requested amount is not possible due to Shaparak limitations.', 'edd-zarinpal' ),
-			'-4'  => esc_attr__( 'Merchant confirmation level is lower than the Silver level.', 'edd-zarinpal' ),
-			'-9'  => esc_attr__( 'There was a validation error.', 'edd-zarinpal' ),
-			'-10' => esc_attr__( 'Terminal is not valid. Please check your Merchant ID or IP address.', 'edd-zarinpal' ),
-			'-11' => esc_attr__( 'Terminal is not active. Please contact our support team.', 'edd-zarinpal' ),
-			'-12' => esc_attr__( 'Too many attempts, please try again later.', 'edd-zarinpal' ),
-			'-15' => esc_attr__( 'Terminal user is suspended.', 'edd-zarinpal' ),
-			'-16' => esc_attr__( 'Terminal user level is not valid.', 'edd-zarinpal' ),
-			'-17' => esc_attr__( 'Terminal user level is not valid.', 'edd-zarinpal' ),
-			'-21' => esc_attr__( 'No financial operation found for this transaction.', 'edd-zarinpal' ),
-			'-22' => esc_attr__( 'The transaction has been unsuccessful.', 'edd-zarinpal' ),
-			'-33' => esc_attr__( 'Transaction amount does not match the paid amount.', 'edd-zarinpal' ),
-			'-34' => esc_attr__( 'The transaction has reached the limit for the number or amount of divisions.', 'edd-zarinpal' ),
-			'-39' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'edd-zarinpal' ),
-			'-40' => esc_attr__( 'No access permission to the relevant method.', 'edd-zarinpal' ),
-			'-41' => esc_attr__( 'The provided data related to AdditionalData is invalid.', 'edd-zarinpal' ),
-			'-42' => esc_attr__( 'The valid lifespan of the payment ID must be between 30 minutes to 45 days.', 'edd-zarinpal' ),
-			'-50' => esc_attr__( 'The amount paid is different from the amount sent in the verification method.', 'edd-zarinpal' ),
-			'-51' => esc_attr__( 'Failed payment.', 'edd-zarinpal' ),
-			'-52' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'edd-zarinpal' ),
-			'-53' => esc_attr__( 'The payment does not belong to this merchant code.', 'edd-zarinpal' ),
-			'-54' => esc_attr__( 'Invalid authority.', 'edd-zarinpal' ),
-			'100' => esc_attr__( 'The operation was successful.', 'edd-zarinpal' ),
-			'101' => esc_attr__( 'The payment operation was successful, and the payment verification for the transaction has been done before.', 'edd-zarinpal' ),
+			'-1'  => esc_attr__( 'Incomplete information provided.', 'integrate-zarinpal-edd' ),
+			'-2'  => esc_attr__( 'Incorrect IP or merchant code.', 'integrate-zarinpal-edd' ),
+			'-3'  => esc_attr__( 'Payment with the requested amount is not possible due to Shaparak limitations.', 'integrate-zarinpal-edd' ),
+			'-4'  => esc_attr__( 'Merchant confirmation level is lower than the Silver level.', 'integrate-zarinpal-edd' ),
+			'-9'  => esc_attr__( 'There was a validation error.', 'integrate-zarinpal-edd' ),
+			'-10' => esc_attr__( 'Terminal is not valid. Please check your Merchant ID or IP address.', 'integrate-zarinpal-edd' ),
+			'-11' => esc_attr__( 'Terminal is not active. Please contact our support team.', 'integrate-zarinpal-edd' ),
+			'-12' => esc_attr__( 'Too many attempts, please try again later.', 'integrate-zarinpal-edd' ),
+			'-15' => esc_attr__( 'Terminal user is suspended.', 'integrate-zarinpal-edd' ),
+			'-16' => esc_attr__( 'Terminal user level is not valid.', 'integrate-zarinpal-edd' ),
+			'-17' => esc_attr__( 'Terminal user level is not valid.', 'integrate-zarinpal-edd' ),
+			'-21' => esc_attr__( 'No financial operation found for this transaction.', 'integrate-zarinpal-edd' ),
+			'-22' => esc_attr__( 'The transaction has been unsuccessful.', 'integrate-zarinpal-edd' ),
+			'-33' => esc_attr__( 'Transaction amount does not match the paid amount.', 'integrate-zarinpal-edd' ),
+			'-34' => esc_attr__( 'The transaction has reached the limit for the number or amount of divisions.', 'integrate-zarinpal-edd' ),
+			'-39' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'integrate-zarinpal-edd' ),
+			'-40' => esc_attr__( 'No access permission to the relevant method.', 'integrate-zarinpal-edd' ),
+			'-41' => esc_attr__( 'The provided data related to AdditionalData is invalid.', 'integrate-zarinpal-edd' ),
+			'-42' => esc_attr__( 'The valid lifespan of the payment ID must be between 30 minutes to 45 days.', 'integrate-zarinpal-edd' ),
+			'-50' => esc_attr__( 'The amount paid is different from the amount sent in the verification method.', 'integrate-zarinpal-edd' ),
+			'-51' => esc_attr__( 'Failed payment.', 'integrate-zarinpal-edd' ),
+			'-52' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'integrate-zarinpal-edd' ),
+			'-53' => esc_attr__( 'The payment does not belong to this merchant code.', 'integrate-zarinpal-edd' ),
+			'-54' => esc_attr__( 'Invalid authority.', 'integrate-zarinpal-edd' ),
+			'100' => esc_attr__( 'The operation was successful.', 'integrate-zarinpal-edd' ),
+			'101' => esc_attr__( 'The payment operation was successful, and the payment verification for the transaction has been done before.', 'integrate-zarinpal-edd' ),
 		];
 
 		if ( array_key_exists( "$code", $error ) ) {
@@ -170,7 +170,7 @@ class Helpers {
 			return $error[ "$code" ];
 		} else {
 
-			return esc_attr__( 'An unknown error occurred while connecting to the ZarinPal gateway.', 'edd-zarinpal' );
+			return esc_attr__( 'An unknown error occurred while connecting to the ZarinPal gateway.', 'integrate-zarinpal-edd' );
 		}
 	}
 

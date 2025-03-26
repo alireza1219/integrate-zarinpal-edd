@@ -1,10 +1,10 @@
 <?php
 
-namespace EDD_ZarinPal;
+namespace Integrate_ZarinPal_EDD;
 
-use EDD_ZarinPal\Admin\Settings;
-use EDD_ZarinPal\Frontend\Handler;
-use EDD_ZarinPal\Gateway\Gateway;
+use Integrate_ZarinPal_EDD\Admin\Settings;
+use Integrate_ZarinPal_EDD\Frontend\Handler;
+use Integrate_ZarinPal_EDD\Gateway\Gateway;
 
 /**
  * Plugin class.

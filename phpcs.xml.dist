@@ -14,7 +14,7 @@
     <arg name="extensions" value="php" />
     <arg name="cache" value=".cache/phpcs.json" />
 
-    <file>./edd-zarinpal.php</file>
+    <file>./integrate-zarinpal-edd.php</file>
     <file>./src</file>
 
     <exclude-pattern>/vendor/*</exclude-pattern>
@@ -35,7 +35,7 @@
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="edd-zarinpal" />
+                <element value="integrate-zarinpal-edd" />
             </property>
         </properties>
     </rule>

@@ -1,10 +1,10 @@
 <?php
 
-namespace EDD_ZarinPal\Gateway;
+namespace Integrate_ZarinPal_EDD\Gateway;
 
-use EDD_ZarinPal\Admin\Settings;
-use EDD_ZarinPal\Helpers;
-use EDD_ZarinPal\Plugin;
+use Integrate_ZarinPal_EDD\Admin\Settings;
+use Integrate_ZarinPal_EDD\Helpers;
+use Integrate_ZarinPal_EDD\Plugin;
 
 /**
  * Gateway class.
@@ -114,7 +114,7 @@ class Gateway {
 	 */
 	public function process_payment( $payment_data ) {
 
-		Helpers::log_info( esc_html__( 'ZarinPal payment process has begun.', 'edd-zarinpal' ) );
+		Helpers::log_info( esc_html__( 'ZarinPal payment process has begun.', 'integrate-zarinpal-edd' ) );
 
 		// Make PHP interpreter happy in rare situations.
 		$payment_data = is_array( $payment_data ) ? $payment_data : [];
@@ -125,11 +125,11 @@ class Gateway {
 		// Nonce verification.
 		if ( ! wp_verify_nonce( $nonce, self::NONCE_KEY ) ) {
 
-			Helpers::log_info( esc_html__( 'ZarinPal payment process was stopped due to a nonce verification problem.', 'edd-zarinpal' ) );
+			Helpers::log_info( esc_html__( 'ZarinPal payment process was stopped due to a nonce verification problem.', 'integrate-zarinpal-edd' ) );
 
 			wp_die(
-				esc_html__( 'Nonce verification has failed', 'edd-zarinpal' ),
-				esc_html__( 'Error', 'edd-zarinpal' ),
+				esc_html__( 'Nonce verification has failed', 'integrate-zarinpal-edd' ),
+				esc_html__( 'Error', 'integrate-zarinpal-edd' ),
 				[ 'response' => 403 ]
 			);
 		}
@@ -153,8 +153,8 @@ class Gateway {
 		if ( ! $order_id ) {
 
 			Helpers::log_error(
-				esc_html__( 'Order creation failed before ZarinPal payment request initialization.', 'edd-zarinpal' ),
-				esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ),
+				esc_html__( 'Order creation failed before ZarinPal payment request initialization.', 'integrate-zarinpal-edd' ),
+				esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
 				false,
 				$order_data
 			);
@@ -188,7 +188,7 @@ class Gateway {
 		// TODO: Check for description max length.
 		$description = sprintf(
 			/* translators: %1$s Order ID, %2$s: Customer name. */
-			esc_html__( 'Order ID: %1$s, Customer Name: %2$s', 'edd-zarinpal' ),
+			esc_html__( 'Order ID: %1$s, Customer Name: %2$s', 'integrate-zarinpal-edd' ),
 			$order_id,
 			Helpers::get_customer_name( $order_data['user_info'] )
 		);
@@ -206,8 +206,8 @@ class Gateway {
 		if ( ! $request_result || ! isset( $request_result['Status'] ) ) {
 
 			Helpers::log_error(
-				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'edd-zarinpal' ),
-				esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ),
+				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'integrate-zarinpal-edd' ),
+				esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
 				true,
 				null,
 				$order_id
@@ -220,12 +220,12 @@ class Gateway {
 		if ( $request_result['Status'] !== 100 ) {
 
 			Helpers::log_error(
-				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'edd-zarinpal' ),
-				esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ),
+				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'integrate-zarinpal-edd' ),
+				esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
 				true,
 				sprintf(
 					/* translators: %1$s Error Code, %2$s: Parsed error message. */
-					esc_html__( 'Error Code %1$s, %2$s', 'edd-zarinpal' ),
+					esc_html__( 'Error Code %1$s, %2$s', 'integrate-zarinpal-edd' ),
 					$request_result['Status'],
 					Helpers::parse_error_message( $request_result['Status'] )
 				),
@@ -235,7 +235,7 @@ class Gateway {
 			edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
 		}
 
-		Helpers::log_info( esc_html__( 'ZarinPal payment process has been completed successfully.', 'edd-zarinpal' ) );
+		Helpers::log_info( esc_html__( 'ZarinPal payment process has been completed successfully.', 'integrate-zarinpal-edd' ) );
 
 		// Redirect the user to payment page.
 		$authority    = $request_result['Authority'];
@@ -260,14 +260,14 @@ class Gateway {
 			return;
 		}
 
-		Helpers::log_info( esc_html__( 'ZarinPal payment verification has begun.', 'edd-zarinpal' ) );
+		Helpers::log_info( esc_html__( 'ZarinPal payment verification has begun.', 'integrate-zarinpal-edd' ) );
 
 		// All required arguments must be set and not empty.
 		$required_args = [ 'Order', 'Verification', 'Authority' ];
 		foreach ( $required_args as $key ) {
 			if ( ! isset( $_GET[ $key ] ) || empty( $_GET[ $key ] ) ) {
 
-				Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to the missing required parameters.', 'edd-zarinpal' ) );
+				Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to the missing required parameters.', 'integrate-zarinpal-edd' ) );
 
 				return;
 			}
@@ -285,7 +285,7 @@ class Gateway {
 		// Do nothing when the hash computed from the order ID differs from the received hash.
 		if ( ! Helpers::verify_hash( $order_id, $verification_hash ) ) {
 
-			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a mismatch in the verification hash.', 'edd-zarinpal' ) );
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a mismatch in the verification hash.', 'integrate-zarinpal-edd' ) );
 
 			return;
 		}
@@ -294,14 +294,14 @@ class Gateway {
 
 		if ( ! $order ) {
 
-			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a missing order record.', 'edd-zarinpal' ) );
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped due to a missing order record.', 'integrate-zarinpal-edd' ) );
 
 			return;
 		}
 
 		if ( $order->status !== self::EDD_PENDING_STATUS_KEY ) {
 
-			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped because the order is undergoing re-verification.', 'edd-zarinpal' ) );
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification was stopped because the order is undergoing re-verification.', 'integrate-zarinpal-edd' ) );
 
 			return;
 		}
@@ -333,17 +333,17 @@ class Gateway {
 			// Note that the $request_result can have a value of false.
 			$status = $request_result['Status'] ?? -1219;
 
-			$failure_message = esc_html__( 'ZarinPal payment verification failed!', 'edd-zarinpal' );
+			$failure_message = esc_html__( 'ZarinPal payment verification failed!', 'integrate-zarinpal-edd' );
 			$failure_reason  = sprintf(
 				/* translators: %1$s Error Code, %2$s: Parsed error message. */
-				esc_html__( 'Error Code %1$s, %2$s', 'edd-zarinpal' ),
+				esc_html__( 'Error Code %1$s, %2$s', 'integrate-zarinpal-edd' ),
 				$status,
 				Helpers::parse_error_message( $status )
 			);
 
 			Helpers::log_error(
 				$failure_message,
-				esc_html__( 'ZarinPal Gateway Error', 'edd-zarinpal' ),
+				esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
 				true,
 				$failure_reason,
 				$order_id
@@ -356,7 +356,7 @@ class Gateway {
 			edd_insert_payment_note( $order_id, sprintf( '%s %s', $failure_message, $failure_reason ) );
 		} else {
 
-			Helpers::log_info( esc_html__( 'ZarinPal payment verification has been completed successfully.', 'edd-zarinpal' ) );
+			Helpers::log_info( esc_html__( 'ZarinPal payment verification has been completed successfully.', 'integrate-zarinpal-edd' ) );
 
 			$reference_id = $request_result['RefID'];
 
@@ -370,7 +370,7 @@ class Gateway {
 				$order_id,
 				sprintf(
 					/* translators: %1$s Reference ID, %2$s: Authority. */
-					esc_html__( 'ZarinPal payment was successful. Reference ID: %1$s, Authority: %2$s.', 'edd-zarinpal' ),
+					esc_html__( 'ZarinPal payment was successful. Reference ID: %1$s, Authority: %2$s.', 'integrate-zarinpal-edd' ),
 					$reference_id,
 					$authority
 				)
@@ -388,7 +388,7 @@ class Gateway {
 		 * @param int    $order_id The ID of the order.
 		 * @param object $order    The order object containing relevant details.
 		 */
-		do_action( 'edd_zarinpal_payment_verification_completed', $order_id, edd_get_order( $order_id ) );
+		do_action( 'integrate_zarinpal_edd_payment_verification_completed', $order_id, edd_get_order( $order_id ) );
 	}
 
 	/**

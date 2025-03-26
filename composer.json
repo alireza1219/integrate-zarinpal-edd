@@ -1,6 +1,6 @@
 {
-    "name": "alireza1219/edd-zarinpal",
-    "description": "Zarinpal integration with Easy Digital Downloads.",
+    "name": "alireza1219/integrate-zarinpal-edd",
+    "description": "Zarinpal integration for Easy Digital Downloads.",
     "license": "GPL-3.0",
     "authors": [
         {
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "EDD_ZarinPal\\": "src/"
+            "Integrate_ZarinPal_EDD\\": "src/"
         }
     },
     "require": {},

@@ -1,9 +1,11 @@
+# Copyright (C) 2025 Alireza Barani
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: EDD ZarinPal 1.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/alireza1219/edd-zarinpal/issues\n"
-"POT-Creation-Date: 2025-02-16T16:44:35+00:00\n"
-"PO-Revision-Date: 2025-03-04 23:56+0330\n"
+"Project-Id-Version: Integrate ZarinPal for EDD 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/integrate-zarinpal-edd\n"
+"POT-Creation-Date: 2025-03-26T06:00:08+00:00\n"
+"PO-Revision-Date: 2025-03-26 09:51+0330\n"
 "Last-Translator: Alireza Barani <baranali02@gmail.com>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -11,269 +13,268 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.5\n"
-"X-Domain: edd-zarinpal\n"
+"X-Domain: integrate-zarinpal-edd\n"
 
 #. Plugin Name of the plugin
-#: edd-zarinpal.php
-msgid "EDD ZarinPal"
-msgstr "درگاه پرداخت زرین‌پال برای EDD"
+#: integrate-zarinpal-edd.php
+msgid "Integrate ZarinPal for EDD"
+msgstr "ادغام درگاه پرداخت زرین‌پال برای EDD"
 
 #. Plugin URI of the plugin
-#: edd-zarinpal.php
-msgid "https://github.com/alireza1219/edd-zarinpal/issues"
-msgstr "https://github.com/alireza1219/edd-zarinpal/issues"
+#: integrate-zarinpal-edd.php
+msgid "https://wordpress.org/plugins/integrate-zarinpal-edd"
+msgstr "https://wordpress.org/plugins/integrate-zarinpal-edd"
 
 #. Description of the plugin
-#: edd-zarinpal.php
-msgid "Zarinpal integration with Easy Digital Downloads."
+#: integrate-zarinpal-edd.php
+msgid "Zarinpal integration for Easy Digital Downloads."
 msgstr "درگاه پرداخت زرین‌پال را با پلتفرم محبوب Easy Digital Downloads یکپارچه کنید."
 
 #. Author of the plugin
-#: edd-zarinpal.php
+#: integrate-zarinpal-edd.php
 msgid "Alireza Barani"
 msgstr "علیرضا بارانی"
 
 #. Author URI of the plugin
-#: edd-zarinpal.php
+#: integrate-zarinpal-edd.php
 msgid "https://alireza1219.ir"
 msgstr "https://alireza1219.ir"
 
-#: src/Admin/Settings.php:67 src/Admin/Settings.php:68
-#: src/Admin/Settings.php:126
+#: src/Admin/Settings.php:72 src/Admin/Settings.php:73 src/Admin/Settings.php:131
 msgid "ZarinPal"
 msgstr "زرین‌پال"
 
-#: src/Admin/Settings.php:93
+#: src/Admin/Settings.php:98
 msgid "ZarinPal Merchant ID"
 msgstr "شناسه مرچنت زرین‌پال"
 
-#: src/Admin/Settings.php:94
+#: src/Admin/Settings.php:99
 msgid "Enter your ZarinPal Merchant ID here."
 msgstr "شناسه مرچنت درگاه پرداخت زرین پال را در اینجا وارد کنید."
 
-#: src/Gateway/API.php:104
+#: src/Gateway/API.php:109
 msgid "Invalid ZarinPal API action provided!"
 msgstr "عمل نامعتبری جهت ارتباط با API زرین‌پال ارسال شده است!"
 
-#: src/Gateway/API.php:105
+#: src/Gateway/API.php:110
 msgid "ZarinPal API Action Error"
 msgstr "عمل نامعتبر API زرین‌پال"
 
 #. translators: %s The current endpoint action.
-#: src/Gateway/API.php:139
+#: src/Gateway/API.php:144
 msgid "Making API request to %s endpoint"
 msgstr "در حال ارسال درخواست به نقطه پایانی %s"
 
-#: src/Gateway/API.php:173
+#: src/Gateway/API.php:178
 msgid "ZarinPal API Request Failure"
 msgstr "خطای درخواست API زرین‌پال"
 
 #. translators: %d API HTTP response code.
-#: src/Gateway/API.php:189
+#: src/Gateway/API.php:194
 msgid "ZarinPal payment gateway returned HTTP status code %d"
 msgstr "درگاه پرداخت زرین‌پال کد وضعیت %d HTTP را بازگرداند"
 
-#: src/Gateway/API.php:192
+#: src/Gateway/API.php:197
 msgid "ZarinPal API Status Error"
 msgstr "خطای API زرین‌پال"
 
-#: src/Gateway/API.php:210
+#: src/Gateway/API.php:215
 msgid "Failed to decode ZarinPal API response"
 msgstr "رمزگشایی پاسخ دریافت شده از API زرین‌پال با شکست مواجه شد"
 
-#: src/Gateway/API.php:211
+#: src/Gateway/API.php:216
 msgid "JSON Decode Error"
 msgstr "خطای رمزگشایی JSON"
 
 #. translators: %s Current API action.
-#: src/Gateway/API.php:226
+#: src/Gateway/API.php:231
 msgid "Request to %s ZarinPal endpoint succeeded"
 msgstr "ارسال درخواست از نوع %s به API زرین‌پال با موفقیت انجام شد"
 
-#: src/Gateway/Gateway.php:125
+#: src/Gateway/Gateway.php:131
 msgid "Nonce verification has failed"
 msgstr "عملیات اعتبارسنجی Nonce با شکست مواجه شد"
 
-#: src/Gateway/Gateway.php:126
+#: src/Gateway/Gateway.php:132
 msgid "Error"
 msgstr "خطا"
 
-#: src/Gateway/Gateway.php:150
+#: src/Gateway/Gateway.php:156
 msgid "Order creation failed before ZarinPal payment request initialization."
 msgstr "ساخت سفارش جدید پیش از ارسال درخواست به درگاه پرداخت زرین‌پال با شکست مواجه شد."
 
-#: src/Gateway/Gateway.php:151 src/Gateway/Gateway.php:204
-#: src/Gateway/Gateway.php:218 src/Gateway/Gateway.php:334 src/Helpers.php:46
+#: src/Gateway/Gateway.php:157 src/Gateway/Gateway.php:210 src/Gateway/Gateway.php:224 src/Gateway/Gateway.php:346
+#: src/Helpers.php:60
 msgid "ZarinPal Gateway Error"
 msgstr "خطای درگاه پرداخت زرین‌پال"
 
 #. translators: %1$s Order ID, %2$s: Customer name.
-#: src/Gateway/Gateway.php:185
+#: src/Gateway/Gateway.php:191
 msgid "Order ID: %1$s, Customer Name: %2$s"
 msgstr "شماره سفارش: %1$s، نام مشتری: %2$s"
 
-#: src/Gateway/Gateway.php:203 src/Gateway/Gateway.php:217
+#: src/Gateway/Gateway.php:209 src/Gateway/Gateway.php:223
 msgid "There was an error while trying to connect to ZarinPal's API."
 msgstr "هنگام تلاش برای اتصال به API زرین‌پال خطایی رخ داد."
 
 #. translators: %1$s Error Code, %2$s: Parsed error message.
-#: src/Gateway/Gateway.php:222 src/Gateway/Gateway.php:327
+#: src/Gateway/Gateway.php:228 src/Gateway/Gateway.php:339
 msgid "Error Code %1$s, %2$s"
 msgstr "کد خطا %1$s، %2$s"
 
-#: src/Helpers.php:23 src/Helpers.php:51
+#: src/Helpers.php:37 src/Helpers.php:65
 msgid "Context"
 msgstr "اطلاعات بیشتر"
 
-#: src/Helpers.php:109
+#: src/Helpers.php:124
 msgid "Not Available"
 msgstr "در دسترس نیست"
 
-#: src/Helpers.php:125
+#: src/Helpers.php:140
 msgid "Incomplete information provided."
 msgstr "اطلاعات ارسال شده ناقص است."
 
-#: src/Helpers.php:126
+#: src/Helpers.php:141
 msgid "Incorrect IP or merchant code."
 msgstr "آدرس IP و یا شناسه مرچنت پذیرنده صحیح نیست."
 
-#: src/Helpers.php:127
+#: src/Helpers.php:142
 msgid "Payment with the requested amount is not possible due to Shaparak limitations."
 msgstr "با توجه به محدودیت‌های شاپرک، امکان پرداخت با رقم درخواست شده میسر نمی‌باشد."
 
-#: src/Helpers.php:128
+#: src/Helpers.php:143
 msgid "Merchant confirmation level is lower than the Silver level."
 msgstr "سطح تأیید پذیرنده پایین‌تر از سطح نقره ای است."
 
-#: src/Helpers.php:129
+#: src/Helpers.php:144
 msgid "There was a validation error."
 msgstr "خطای اعتبارسنجی رخ داده است."
 
-#: src/Helpers.php:130
+#: src/Helpers.php:145
 msgid "Terminal is not valid. Please check your Merchant ID or IP address."
 msgstr "شناسه مرچنت یا آدرس IP شما معتبر نمی‌باشد. لطفاً نسبت به تصحیح کردن آن اقدام کنید."
 
-#: src/Helpers.php:131
+#: src/Helpers.php:146
 msgid "Terminal is not active. Please contact our support team."
 msgstr "شناسه مرچنت شما فعال نمی‌باشد. لطفاً مشکل خود را به امور مشتریان زرین‌پال ارجاع دهید."
 
-#: src/Helpers.php:132
+#: src/Helpers.php:147
 msgid "Too many attempts, please try again later."
 msgstr "تلاش‌ها بیش از دفعات مجاز تعیین شده در یک بازه زمانی می‌باشد. لطفاً کمی بعد تلاش کنید."
 
-#: src/Helpers.php:133
+#: src/Helpers.php:148
 msgid "Terminal user is suspended."
 msgstr "درگاه پرداخت شما به حالت تعلیق درآمده است. لطفاً مشکل خود را به امور مشتریان زرین‌پال ارجاع دهید."
 
-#: src/Helpers.php:134 src/Helpers.php:135
+#: src/Helpers.php:149 src/Helpers.php:150
 msgid "Terminal user level is not valid."
 msgstr "مشکلی در سطح تأیید پذیرنده وجود دارد. لطفاً مشکل خود را به امور مشتریان زرین‌پال ارجاع دهید."
 
-#: src/Helpers.php:136
+#: src/Helpers.php:151
 msgid "No financial operation found for this transaction."
 msgstr "هیچ نوع عملیات مالی برای این تراکنش یافت نشد."
 
-#: src/Helpers.php:137
+#: src/Helpers.php:152
 msgid "The transaction has been unsuccessful."
 msgstr "تراکنش ناموفق می‌باشد."
 
-#: src/Helpers.php:138
+#: src/Helpers.php:153
 msgid "Transaction amount does not match the paid amount."
 msgstr "مبلغ تراکنش با مبلغ پرداخت شده مطابقت ندارد."
 
-#: src/Helpers.php:139
+#: src/Helpers.php:154
 msgid "The transaction has reached the limit for the number or amount of divisions."
 msgstr "سقف تقسیم تراکنش از لحاظ تعداد یا رقم عبور نموده است."
 
-#: src/Helpers.php:140 src/Helpers.php:146
+#: src/Helpers.php:155 src/Helpers.php:161
 msgid "An unexpected error has occurred. Please get in touch with the ZarinPal's customer care."
 msgstr "خطای نامشخصی رخ داده است. لطفاً با امور مشتریان زرین‌پال تماس بگیرید."
 
-#: src/Helpers.php:141
+#: src/Helpers.php:156
 msgid "No access permission to the relevant method."
 msgstr "اجازه دسترسی به متد مربوطه وجود ندارد."
 
-#: src/Helpers.php:142
+#: src/Helpers.php:157
 msgid "The provided data related to AdditionalData is invalid."
 msgstr "اطلاعات ارسال شده مرتبط با AdditionalData نامعتبر می‌باشد."
 
-#: src/Helpers.php:143
+#: src/Helpers.php:158
 msgid "The valid lifespan of the payment ID must be between 30 minutes to 45 days."
 msgstr "مدت زمان معتبر طول عمر شناسه پرداخت باید بین ۳۰ دقیقه تا ۴۵ روز باشد."
 
-#: src/Helpers.php:144
+#: src/Helpers.php:159
 msgid "The amount paid is different from the amount sent in the verification method."
 msgstr "مبلغ پرداخت شده با مبلغ ارسال شده از سوی متد اعتبارسنجی متفاوت است."
 
-#: src/Helpers.php:145
+#: src/Helpers.php:160
 msgid "Failed payment."
 msgstr "پرداخت با شکست مواجه شده است."
 
-#: src/Helpers.php:147
+#: src/Helpers.php:162
 msgid "The payment does not belong to this merchant code."
 msgstr "پرداخت فوق به شناسه مرچنت ارسال شده تعلق ندارد."
 
-#: src/Helpers.php:148
+#: src/Helpers.php:163
 msgid "Invalid authority."
 msgstr "آتوریتی (Authority) نامعتبر است."
 
-#: src/Helpers.php:149
+#: src/Helpers.php:164
 msgid "The operation was successful."
 msgstr "عملیات با موفقیت انجام گردیده است."
 
-#: src/Helpers.php:150
+#: src/Helpers.php:165
 msgid "The payment operation was successful, and the payment verification for the transaction has been done before."
 msgstr "عملیات پرداخت موفق بوده و اعتبارسنجی تراکنش قبلاً صورت گرفته است."
 
-#: src/Helpers.php:158
+#: src/Helpers.php:173
 msgid "An unknown error occurred while connecting to the ZarinPal gateway."
 msgstr "خطای نامشخصی هنگام اتصال به درگاه زرین‌پال رخ داده است."
 
-#: src/Admin/Settings.php:88
+#: src/Admin/Settings.php:93
 msgid "Enable ZarinGate"
 msgstr "فعال‌سازی زرین‌گیت"
 
-#: src/Gateway/Gateway.php:111
+#: src/Gateway/Gateway.php:117
 msgid "ZarinPal payment process has begun."
 msgstr "درخواست پرداخت زرین‌پال آغاز شد."
 
-#: src/Gateway/Gateway.php:122
+#: src/Gateway/Gateway.php:128
 msgid "ZarinPal payment process was stopped due to a nonce verification problem."
 msgstr "درخواست پرداخت زرین‌پال به دلیل مشکل اعتبارسنجی Nonce متوقف شد."
 
-#: src/Gateway/Gateway.php:232
+#: src/Gateway/Gateway.php:238
 msgid "ZarinPal payment process has been completed successfully."
 msgstr "درخواست پرداخت زرین‌پال با موفقیت به اتمام رسید."
 
-#: src/Gateway/Gateway.php:255
+#: src/Gateway/Gateway.php:263
 msgid "ZarinPal payment verification has begun."
 msgstr "اعتبارسنجی پرداخت زرین‌پال آغاز شد."
 
-#: src/Gateway/Gateway.php:262
+#: src/Gateway/Gateway.php:270
 msgid "ZarinPal payment verification was stopped due to the missing required parameters."
 msgstr "اعتبارسنجی پرداخت زرین‌پال متوقف شد، برخی از پارامترهای مورد نیاز تنظیم نشده‌اند."
 
-#: src/Gateway/Gateway.php:276
+#: src/Gateway/Gateway.php:288
 msgid "ZarinPal payment verification was stopped due to a mismatch in the verification hash."
 msgstr "اعتبارسنجی پرداخت زرین‌پال به دلیل وجود مشکل در هش بازگشتی از درگاه پرداخت، متوقف شد."
 
-#: src/Gateway/Gateway.php:285
+#: src/Gateway/Gateway.php:297
 msgid "ZarinPal payment verification was stopped due to a missing order record."
 msgstr "اعتبارسنجی پرداخت زرین‌پال متوقف شد، رکورد سفارش یافت نشد."
 
-#: src/Gateway/Gateway.php:292
+#: src/Gateway/Gateway.php:304
 msgid "ZarinPal payment verification was stopped because the order is undergoing re-verification."
 msgstr "اعتبارسنجی پرداخت زرین‌پال متوقف شد، سفارش در حال اعتبارسنجی مجدد است."
 
-#: src/Gateway/Gateway.php:324
+#: src/Gateway/Gateway.php:336
 msgid "ZarinPal payment verification failed!"
 msgstr "اعتبارسنجی پرداخت زرین‌پال با شکست مواجه شد!"
 
-#: src/Gateway/Gateway.php:347
+#: src/Gateway/Gateway.php:359
 msgid "ZarinPal payment verification has been completed successfully."
 msgstr "اعتبارسنجی پرداخت زرین‌پال با موفقیت انجام شد."
 
 #. translators: %1$s Reference ID, %2$s: Authority.
-#: src/Gateway/Gateway.php:361
+#: src/Gateway/Gateway.php:373
 msgid "ZarinPal payment was successful. Reference ID: %1$s, Authority: %2$s."
 msgstr "پرداخت زرین‌پال موفقیت‌آمیز بود. شماره مرجع: %1$s، شماره آتوریتی: %2$s."
