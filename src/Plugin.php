@@ -1,10 +1,10 @@
 <?php
 
-namespace Integrate_ZarinPal_EDD;
+namespace Alireza1219\Integrate_ZarinPal_EDD;
 
-use Integrate_ZarinPal_EDD\Admin\Settings;
-use Integrate_ZarinPal_EDD\Frontend\Handler;
-use Integrate_ZarinPal_EDD\Gateway\Gateway;
+use Alireza1219\Integrate_ZarinPal_EDD\Admin\Settings;
+use Alireza1219\Integrate_ZarinPal_EDD\Frontend\Handler;
+use Alireza1219\Integrate_ZarinPal_EDD\Gateway\Gateway;
 
 /**
  * Plugin class.

@@ -15,7 +15,7 @@
  * @package           integrate-zarinpal-edd
  */
 
-use Integrate_ZarinPal_EDD\Plugin;
+use Alireza1219\Integrate_ZarinPal_EDD\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -60,7 +60,7 @@ require_once INTEGRATE_ZARINPAL_EDD_PATH . 'vendor/autoload.php';
  *
  * @return void
  */
-function load_integrate_zarinpal_edd_textdomain() {
+function integrate_zarinpal_edd_load_textdomain() {
 
 	load_plugin_textdomain(
 		'integrate-zarinpal-edd',
@@ -69,7 +69,7 @@ function load_integrate_zarinpal_edd_textdomain() {
 	);
 }
 
-add_action( 'init', 'load_integrate_zarinpal_edd_textdomain' );
+add_action( 'init', 'integrate_zarinpal_edd_load_textdomain' );
 
 // Hello, friend!
 Plugin::get_instance();

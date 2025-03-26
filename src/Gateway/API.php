@@ -1,9 +1,9 @@
 <?php
 
-namespace Integrate_ZarinPal_EDD\Gateway;
+namespace Alireza1219\Integrate_ZarinPal_EDD\Gateway;
 
-use Integrate_ZarinPal_EDD\Admin\Settings;
-use Integrate_ZarinPal_EDD\Helpers;
+use Alireza1219\Integrate_ZarinPal_EDD\Admin\Settings;
+use Alireza1219\Integrate_ZarinPal_EDD\Helpers;
 
 /**
  * ZarinPal API class.

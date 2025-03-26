@@ -1,8 +1,8 @@
 <?php
 
-namespace Integrate_ZarinPal_EDD\Admin;
+namespace Alireza1219\Integrate_ZarinPal_EDD\Admin;
 
-use Integrate_ZarinPal_EDD\Plugin;
+use Alireza1219\Integrate_ZarinPal_EDD\Plugin;
 
 /**
  * Settings class.
@@ -18,7 +18,7 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	const MERCHANT_SETTINGS_KEY = 'zarinpal_merchant_id';
+	const MERCHANT_SETTINGS_KEY = 'integrate_zarinpal_edd_merchant_id';
 
 	/**
 	 * The setting key for the ZarinGate.
@@ -27,7 +27,7 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	const ZARINGATE_SETTINGS_KEY = 'zarinpal_zaringate';
+	const ZARINGATE_SETTINGS_KEY = 'integrate_zarinpal_edd_zaringate';
 
 	/**
 	 * Settings class constructor.

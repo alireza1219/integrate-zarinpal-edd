@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrate_ZarinPal_EDD;
+namespace Alireza1219\Integrate_ZarinPal_EDD;
 
 /**
  * Helpers class.

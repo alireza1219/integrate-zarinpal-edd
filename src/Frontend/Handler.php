@@ -1,9 +1,9 @@
 <?php
 
-namespace Integrate_ZarinPal_EDD\Frontend;
+namespace Alireza1219\Integrate_ZarinPal_EDD\Frontend;
 
-use Integrate_ZarinPal_EDD\Gateway\Gateway;
-use Integrate_ZarinPal_EDD\Plugin;
+use Alireza1219\Integrate_ZarinPal_EDD\Gateway\Gateway;
+use Alireza1219\Integrate_ZarinPal_EDD\Plugin;
 
 /**
  * Payment verification handler in the front-end.

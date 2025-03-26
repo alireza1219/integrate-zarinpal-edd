@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Integrate_ZarinPal_EDD\\": "src/"
+            "Alireza1219\\Integrate_ZarinPal_EDD\\": "src/"
         }
     },
     "require": {},
