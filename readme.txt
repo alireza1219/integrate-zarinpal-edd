@@ -19,6 +19,48 @@ This plugin integrates Zarinpal, a popular Iranian payment gateway, with Easy Di
 - Customizable settings for Merchant ID
 - Compatible with the latest WordPress versions  
 
+**Disclaimer**: This plugin is not associated with, endorsed by, or officially supported by Easy Digital Downloads (EDD) or ZarinPal. All trademarks and logos mentioned are the property of their respective owners.
+
+== External services ==
+
+This plugin relies on the following external services to ensure proper functionality:
+
+### 1. ZarinPal (Payment Gateway)
+
+- **Purpose**: A service used for securely processing payments and handling financial transactions on your website.
+- **Data sent**:
+  - The order amount.
+  - The user's full name (if provided).
+  - Callback URL (redirects the user back to the website after payment).
+  - Merchant ID (provided by ZarinPal to the website owner).
+- **When the data is sent**:
+  - When the user initiates the EDD (Easy Digital Downloads) payment process and selects ZarinPal as the payment gateway.
+  - When the ZarinPal transaction is completed, and the user is redirected back to the website.
+- **Service Information**:
+  - Official website: [ZarinPal](https://www.zarinpal.com)
+  - Terms of Service: [ZarinPal Terms of Service](https://www.zarinpal.com/terms.html)
+  - Privacy Policy: [ZarinPal Privacy Policy](https://www.zarinpal.com/policy.html)
+
+### 2. ZarinPal Sandbox (Custom Gateway)
+
+- **Disclaimer**: This sandbox environment is not provided by ZarinPal and was developed and hosted by the plugin developer for testing purposes.
+- **Purpose**: A custom sandbox environment created to simulate the ZarinPal payment gateway for testing and development purposes, following ZarinPal's discontinuation of their official sandbox environment.
+- **Data sent**:
+  - The order amount.
+  - The user's full name (if provided).
+  - Callback URL (redirects the user back to the website after payment).
+  - Merchant ID (any valid 36-character string).
+- **When the data is sent**:
+  - When the user initiates the EDD payment process and selects ZarinPal (Sandbox) as the payment gateway.
+  - When the transaction is completed, and the user is redirected back to the website.
+- **Additional Information**:
+  - This service is only being used when the payment test mode is enabled from EDD settings.
+  - Data stored by the sandbox environment service will be cleared daily at 00:00 (midnight) IRST (Iran Standard Time) from the database.
+  - This custom sandbox environment is hosted by the plugin developer.
+  - The source code of the sandbox environment is available at [GitHub](https://github.com/alireza1219/zarinpal-sandbox).
+- **Service Information**:
+  - [Terms of Service and Privacy Policy](https://sandbox.alireza1219.ir/tos/zarinpal-sandbox-tos-pivacy.html)
+
 == Frequently Asked Questions ==
 
 = How do I get a Zarinpal Merchant ID? =  
