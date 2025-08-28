@@ -72,7 +72,7 @@ This plugin is tested with the latest version of Easy Digital Downloads. However
 = Does this plugin support sandbox mode for testing? =  
 Yes! You can enable EDD's test mode setting for testing transactions.
 
-== Does this plugin support recurring payments ==
+= Does this plugin support recurring payments =
 Unfortunately, no. ZarinPal does not support recurring payments.
 
 == Screenshots ==
