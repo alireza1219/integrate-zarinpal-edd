@@ -1,6 +1,6 @@
 === Integrate ZarinPal for EDD ===
 Contributors: alireza1219
-Tags: zarinpal, easy digital downloads, payment gateway, edd, ecommerce, زرین پال, ایزی دیجیتال دانلودز
+Tags: zarinpal, easy digital downloads, edd, زرین پال, ایزی دیجیتال دانلودز
 Requires at least: 6.2
 Tested up to: 6.8.2
 Requires PHP: 7.4
