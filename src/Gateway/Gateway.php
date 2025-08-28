@@ -41,15 +41,6 @@ class Gateway {
 	const REF_ID_META_KEY = 'zarinpal_order_reference_id';
 
 	/**
-	 * The default Rial currency symbol, provided by EDD.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const IRR_SYMBOL = 'RIAL';
-
-	/**
 	 * The key for the pending orders in EDD.
 	 *
 	 * @since 1.0.0
@@ -98,7 +89,7 @@ class Gateway {
 	public function hooks() {
 
 		add_action( sprintf( 'edd_%s_cc_form', Plugin::SLUG ), '__return_false' ); // ZarinPal does not require a CC form.
-		add_action( 'edd_gateway_' . Plugin::SLUG, [ $this, 'process_payment' ] );
+		add_action( sprintf( 'edd_gateway_%s', Plugin::SLUG ), [ $this, 'process_payment' ] );
 		add_action( 'init', [ $this, 'process_verification' ] );
 		add_filter( 'allowed_redirect_hosts', [ $this, 'allow_redirect' ], 10 );
 	}
@@ -107,6 +98,7 @@ class Gateway {
 	 * Process the incoming payment request from EDD before sending to ZarinPal gateway.
 	 *
 	 * @since 1.0.0
+	 * @since 1.1.0 Checks for recurring items in the cart.
 	 *
 	 * @param array $payment_data All the payment data.
 	 *
@@ -132,6 +124,24 @@ class Gateway {
 				esc_html__( 'Error', 'integrate-zarinpal-edd' ),
 				[ 'response' => 403 ]
 			);
+		}
+
+		// ZarinPal does not support recurring payments, check cart items before proceeding.
+		if ( is_array( $payment_data['cart_details'] ) && ! empty( $payment_data['cart_details'] ) ) {
+
+			foreach ( $payment_data['cart_details'] as $item ) {
+
+				if ( isset( $item['item_number']['options']['recurring'] ) ) {
+
+					Helpers::log_error(
+						esc_html__( 'Integrate ZarinPal for EDD does not support recurring items in cart.', 'integrate-zarinpal-edd' ),
+						esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
+						true
+					);
+
+					edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
+				}
+			}
 		}
 
 		$order_data = [
@@ -179,10 +189,7 @@ class Gateway {
 		);
 
 		// Prepare the payment amount.
-		// FIXME: EDD does not provide IRT currency by default, and various implementations can lead to complexity.
-		// The best solution for now is to contact the EDD development department and request that they add IRT
-		// to the list of core currencies.
-		$amount = $order_data['currency'] === self::IRR_SYMBOL ? $order_data['price'] / 10 : $order_data['price'];
+		$amount = Helpers::is_rial( $order_data['currency'] ) ? $order_data['price'] / 10 : $order_data['price'];
 
 		// Prepare the payment description.
 		// TODO: Check for description max length.
@@ -307,7 +314,7 @@ class Gateway {
 		}
 
 		$amount = (int) $order->total;
-		if ( $order->currency === self::IRR_SYMBOL ) {
+		if ( Helpers::is_rial( $order->currency ) ) {
 			// ZarinPal's default currency is set to IRT (Iranian Toman).
 			$amount = $amount / 10;
 		}

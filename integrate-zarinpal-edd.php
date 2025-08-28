@@ -6,7 +6,7 @@
  * Author:            Alireza Barani
  * Author URI:        https://alireza1219.ir
  * License:           GPL v2 or later
- * Version:           1.0.0
+ * Version:           1.1.0
  * Text Domain:       integrate-zarinpal-edd
  * Domain Path:       /languages
  * Requires at least: 6.2
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-define( 'INTEGRATE_ZARINPAL_EDD_VERSION', '1.0.0' );
+define( 'INTEGRATE_ZARINPAL_EDD_VERSION', '1.1.0' );
 
 /**
  * Plugin file.

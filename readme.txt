@@ -1,10 +1,10 @@
 === Integrate ZarinPal for EDD ===
 Contributors: alireza1219
-Tags: zarinpal, easy digital downloads, payment gateway, edd, ecommerce  
+Tags: zarinpal, easy digital downloads, payment gateway, edd, ecommerce, زرین پال, ایزی دیجیتال دانلودز
 Requires at least: 6.2
-Tested up to: 6.7
+Tested up to: 6.8.2
 Requires PHP: 7.4
-Stable Tag: 1.0.0
+Stable Tag: 1.1.0
 License: GPLv2 or later
 
 A payment gateway integration for Easy Digital Downloads using Zarinpal, a leading Iranian payment processor.
@@ -13,11 +13,11 @@ A payment gateway integration for Easy Digital Downloads using Zarinpal, a leadi
 
 This plugin integrates Zarinpal, a popular Iranian payment gateway, with Easy Digital Downloads (EDD). It allows users to make secure transactions using Zarinpal while purchasing digital products through EDD.
 
-**Features:**  
-- Seamless integration with Easy Digital Downloads  
-- Secure and reliable payment processing through Zarinpal  
+**Features:**
+- Seamless integration with Easy Digital Downloads
+- Secure and reliable payment processing through Zarinpal
 - Customizable settings for Merchant ID
-- Compatible with the latest WordPress versions  
+- Compatible with the latest WordPress versions
 
 **Disclaimer**: This plugin is not associated with, endorsed by, or officially supported by Easy Digital Downloads (EDD) or ZarinPal. All trademarks and logos mentioned are the property of their respective owners.
 
@@ -63,25 +63,31 @@ This plugin relies on the following external services to ensure proper functiona
 
 == Frequently Asked Questions ==
 
-= How do I get a Zarinpal Merchant ID? =  
-Register and obtain your Merchant ID by signing up at [Zarinpal’s official website](https://www.zarinpal.com).  
+= How do I get a Zarinpal Merchant ID? =
+Register and obtain your Merchant ID by signing up at [Zarinpal’s official website](https://www.zarinpal.com).
 
-= Is this plugin compatible with all Easy Digital Downloads versions? =  
-This plugin is tested with the latest version of Easy Digital Downloads. However, ensure you are using an updated version for the best compatibility.  
+= Is this plugin compatible with all Easy Digital Downloads versions? =
+This plugin is tested with the latest version of Easy Digital Downloads. However, ensure you are using an updated version for the best compatibility.
 
 = Does this plugin support sandbox mode for testing? =  
-Yes! You can enable EDD's test mode setting for testing transactions.  
+Yes! You can enable EDD's test mode setting for testing transactions.
+
+== Does this plugin support recurring payments ==
+Unfortunately, no. ZarinPal does not support recurring payments.
 
 == Screenshots ==
 
-1. Configure your Zarinpal Merchant ID and options.  
-2. Customers can choose Zarinpal as their payment method.  
-3. Successful payment confirmation page.  
+1. Configure your Zarinpal Merchant ID and options.
+2. Customers can choose Zarinpal as their payment method.
+3. Successful payment confirmation page.
 
 == Changelog ==
 
 = 1.0.0 =  
-- Initial release  
+- Initial release
+
+= 1.1.0 =
+- Prevent payment process when a recurring item is present in the cart
 
 == Upgrade Notice ==
 

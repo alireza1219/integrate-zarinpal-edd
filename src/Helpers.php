@@ -19,6 +19,28 @@ class Helpers {
 	const SALT_OPTION_KEY = 'integrate-zarinpal-edd-verification-salt';
 
 	/**
+	 * Handles the amount based on the current currency.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $currency_symbol Optional: The currency of the order.
+	 *
+	 * @return bool True when currency is Rial, false otherwise.
+	 */
+	public static function is_rial( $currency_symbol = '' ) {
+
+		// Thanks to EDD, everyone provided their own solution for Iranian currencies.
+		// We have to guess the possible symbols for Rial and put them inside this array.
+		$possible_rial_symbols = [ 'irr', 'rial' ];
+
+		if ( empty( $currency_symbol ) ) {
+			$currency_symbol = edd_get_currency();
+		}
+
+		return in_array( (string) strtolower( $currency_symbol ), $possible_rial_symbols, true );
+	}
+
+	/**
 	 * Logs an informational message.
 	 *
 	 * @since 1.0.0
