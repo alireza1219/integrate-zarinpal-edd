@@ -68,6 +68,24 @@ class Gateway {
 	const EDD_FAILED_STATUS_KEY = 'failed';
 
 	/**
+	 * The maximum allowed length of the description field.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @var int
+	 */
+	const DESCRIPTION_LENGTH = 500;
+
+	/**
+	 * ZarinPal's default gateway currency.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @var string
+	 */
+	const DEFAULT_GATEWAY_CURRENCY = 'IRR';
+
+	/**
 	 * Gateway class constructor.
 	 *
 	 * @since 1.0.0
@@ -99,6 +117,7 @@ class Gateway {
 	 *
 	 * @since 1.0.0
 	 * @since 1.1.0 Checks for recurring items in the cart.
+	 * @since 1.2.0 Adapted to v4 API changes.
 	 *
 	 * @param array $payment_data All the payment data.
 	 *
@@ -172,6 +191,9 @@ class Gateway {
 			edd_send_back_to_checkout( [ 'payment-mode' => $payment_data['post_data']['edd-gateway'] ?? Plugin::SLUG ] );
 		}
 
+		// Ensure $order_id is an integer. In rare cases, such as payment restoration, it may be a string.
+		$order_id = (int) $order_id;
+
 		// Prepare the ZarinPal API.
 		$merchant_id  = edd_get_option( Settings::MERCHANT_SETTINGS_KEY );
 		$zarinpal_api = new API( $merchant_id );
@@ -188,11 +210,10 @@ class Gateway {
 			$callback_url
 		);
 
-		// Prepare the payment amount.
-		$amount = Helpers::is_rial( $order_data['currency'] ) ? $order_data['price'] / 10 : $order_data['price'];
+		// Prepare the payment amount. The final amount is always in Rial.
+		$amount = ! Helpers::is_rial( $order_data['currency'] ) ? $order_data['price'] * 10 : $order_data['price'];
 
 		// Prepare the payment description.
-		// TODO: Check for description max length.
 		$description = sprintf(
 			/* translators: %1$s Order ID, %2$s: Customer name. */
 			esc_html__( 'Order ID: %1$s, Customer Name: %2$s', 'integrate-zarinpal-edd' ),
@@ -200,23 +221,48 @@ class Gateway {
 			Helpers::get_customer_name( $order_data['user_info'] )
 		);
 
+		// Additional length check since description field cannot be more than 500 characters.
+		if ( mb_strlen( $description ) > self::DESCRIPTION_LENGTH ) {
+
+			// Use a non-localized description without the customer name to make it shorter.
+			$description = 'Order ID: ' . $order_id;
+		}
+
 		$request_body = [
-			'Amount'      => $amount,
-			'CallbackURL' => $callback_url,
-			'Description' => $description,
+			'currency'     => self::DEFAULT_GATEWAY_CURRENCY, // The request amount is always in Rial. So, enforce Rial as the default currency.
+			'amount'       => $amount,
+			'callback_url' => $callback_url,
+			'description'  => $description,
 		];
 
 		// Request a payment from ZarinPal.
 		$request_result = $zarinpal_api->create_payment( $request_body );
 
 		// Something went wrong.
-		if ( ! $request_result || ! isset( $request_result['Status'] ) ) {
+		if ( ! $request_result || ! isset( $request_result['data']['code'] ) ) {
+
+			$error_code    = $request_result['errors']['code'] ?? '';
+			$error_message = '';
+			$error_details = null;
+
+			// Try to get a more specific error message.
+			if ( ! empty( $error_code ) ) {
+
+				// Build the error details.
+				$error_message = Helpers::parse_error_message( $error_code );
+				$error_details = sprintf(
+					/* translators: %1$s Error Code, %2$s: Parsed error message. */
+					esc_html__( 'Error Code %1$s, %2$s', 'integrate-zarinpal-edd' ),
+					$error_code,
+					$error_message
+				);
+			}
 
 			Helpers::log_error(
 				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'integrate-zarinpal-edd' ),
 				esc_html__( 'ZarinPal Gateway Error', 'integrate-zarinpal-edd' ),
 				true,
-				null,
+				$error_details,
 				$order_id
 			);
 
@@ -224,7 +270,7 @@ class Gateway {
 		}
 
 		// Handle statues other than 100.
-		if ( $request_result['Status'] !== 100 ) {
+		if ( $request_result['data']['code'] !== 100 ) {
 
 			Helpers::log_error(
 				esc_html__( 'There was an error while trying to connect to ZarinPal\'s API.', 'integrate-zarinpal-edd' ),
@@ -233,8 +279,8 @@ class Gateway {
 				sprintf(
 					/* translators: %1$s Error Code, %2$s: Parsed error message. */
 					esc_html__( 'Error Code %1$s, %2$s', 'integrate-zarinpal-edd' ),
-					$request_result['Status'],
-					Helpers::parse_error_message( $request_result['Status'] )
+					$request_result['data']['code'],
+					Helpers::parse_error_message( $request_result['data']['code'] )
 				),
 				$order_id
 			);
@@ -245,7 +291,7 @@ class Gateway {
 		Helpers::log_info( esc_html__( 'ZarinPal payment process has been completed successfully.', 'integrate-zarinpal-edd' ) );
 
 		// Redirect the user to payment page.
-		$authority    = $request_result['Authority'];
+		$authority    = $request_result['data']['authority'];
 		$redirect_url = API::get_payment_page( $authority );
 		edd_update_payment_meta( $order_id, self::AUTHORITY_META_KEY, $authority );
 		edd_redirect( $redirect_url );
@@ -256,6 +302,7 @@ class Gateway {
 	 * Processes the ZarinPal payment verification requests.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Adapted to v4 API changes.
 	 *
 	 * @return void
 	 */
@@ -282,7 +329,7 @@ class Gateway {
 
 		// Retrieve, sanitize and store the GET parameters for further use.
 		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$order_id          = edd_sanitize_key( (int) $_GET['Order'] );
+		$order_id          = (int) edd_sanitize_key( wp_unslash( $_GET['Order'] ) );
 		$verification_hash = edd_sanitize_key( wp_unslash( $_GET['Verification'] ) );
 		$authority         = edd_sanitize_key( wp_unslash( $_GET['Authority'] ) );
 		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -314,14 +361,14 @@ class Gateway {
 		}
 
 		$amount = (int) $order->total;
-		if ( Helpers::is_rial( $order->currency ) ) {
-			// ZarinPal's default currency is set to IRT (Iranian Toman).
-			$amount = $amount / 10;
+		// Ensure the amount is in Rial since ZarinPal v4 API requires the verification amount to be in Rial.
+		if ( ! Helpers::is_rial( $order->currency ) ) {
+			$amount = $amount * 10;
 		}
 
 		$request_body = [
-			'Authority' => $authority,
-			'Amount'    => $amount,
+			'authority' => $authority,
+			'amount'    => $amount,
 		];
 
 		$zarinpal_api = new API( edd_get_option( Settings::MERCHANT_SETTINGS_KEY ) );
@@ -333,12 +380,13 @@ class Gateway {
 		// The payment verification was unsuccessful.
 		if (
 			! $request_result ||
-			! in_array( (int) $request_result['Status'], [ 100, 101 ], true ) ||
-			empty( $request_result['RefID'] )
+			! isset( $request_result['data']['code'] ) ||
+			! in_array( (int) $request_result['data']['code'], [ 100, 101 ], true ) ||
+			empty( $request_result['data']['ref_id'] )
 		) {
 
-			// Note that the $request_result can have a value of false.
-			$status = $request_result['Status'] ?? -1219;
+			// Try to parse the error code from the verification result.
+			$status = $request_result['errors']['code'] ?? $request_result['data']['code'] ?? -1219;
 
 			$failure_message = esc_html__( 'ZarinPal payment verification failed!', 'integrate-zarinpal-edd' );
 			$failure_reason  = sprintf(
@@ -365,7 +413,7 @@ class Gateway {
 
 			Helpers::log_info( esc_html__( 'ZarinPal payment verification has been completed successfully.', 'integrate-zarinpal-edd' ) );
 
-			$reference_id = $request_result['RefID'];
+			$reference_id = $request_result['data']['ref_id'];
 
 			// Mark this order as completed.
 			edd_update_payment_status( $order_id, self::EDD_COMPLETED_STATUS_KEY );
@@ -402,6 +450,7 @@ class Gateway {
 	 * Allow wp_safe_redirect to redirect to ZarinPal.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Updated ZarinPal endpoints.
 	 *
 	 * @param array $redirects The list of urls that wp_safe_redirect can redirect to.
 	 *
@@ -409,9 +458,8 @@ class Gateway {
 	 */
 	public function allow_redirect( $redirects ) {
 
-		$redirects[] = 'zarinpal.com';
-		$redirects[] = 'www.zarinpal.com';
-		$redirects[] = 'sandbox.alireza1219.ir';
+		$redirects[] = 'payment.zarinpal.com';
+		$redirects[] = 'sandbox.zarinpal.com';
 
 		return $redirects;
 	}

@@ -1,18 +1,17 @@
-# Copyright (C) 2025 Alireza Barani
+# Copyright (C) 2026 Alireza Barani
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Integrate ZarinPal for EDD 1.1.0\n"
+"Project-Id-Version: Integrate ZarinPal for EDD 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/integrate-zarinpal-edd\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-28T16:51:02+00:00\n"
+"POT-Creation-Date: 2026-10-15T15:46:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: integrate-zarinpal-edd\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: integrate-zarinpal-edd.php
@@ -57,128 +56,135 @@ msgstr ""
 msgid "Enter your ZarinPal Merchant ID here."
 msgstr ""
 
-#: src/Gateway/API.php:109
+#: src/Gateway/API.php:115
 msgid "Invalid ZarinPal API action provided!"
 msgstr ""
 
-#: src/Gateway/API.php:110
+#: src/Gateway/API.php:116
 msgid "ZarinPal API Action Error"
 msgstr ""
 
 #. translators: %s The current endpoint action.
-#: src/Gateway/API.php:144
+#: src/Gateway/API.php:150
+#, php-format
 msgid "Making API request to %s endpoint"
 msgstr ""
 
-#: src/Gateway/API.php:178
+#: src/Gateway/API.php:185
 msgid "ZarinPal API Request Failure"
 msgstr ""
 
 #. translators: %d API HTTP response code.
-#: src/Gateway/API.php:194
+#: src/Gateway/API.php:207
+#, php-format
 msgid "ZarinPal payment gateway returned HTTP status code %d"
 msgstr ""
 
-#: src/Gateway/API.php:197
+#: src/Gateway/API.php:210
 msgid "ZarinPal API Status Error"
 msgstr ""
 
-#: src/Gateway/API.php:215
+#: src/Gateway/API.php:227
 msgid "Failed to decode ZarinPal API response"
 msgstr ""
 
-#: src/Gateway/API.php:216
+#: src/Gateway/API.php:228
 msgid "JSON Decode Error"
 msgstr ""
 
 #. translators: %s Current API action.
-#: src/Gateway/API.php:231
+#: src/Gateway/API.php:244
+#, php-format
 msgid "Request to %s ZarinPal endpoint succeeded"
 msgstr ""
 
-#: src/Gateway/Gateway.php:109
+#: src/Gateway/Gateway.php:128
 msgid "ZarinPal payment process has begun."
 msgstr ""
 
-#: src/Gateway/Gateway.php:120
+#: src/Gateway/Gateway.php:139
 msgid "ZarinPal payment process was stopped due to a nonce verification problem."
 msgstr ""
 
-#: src/Gateway/Gateway.php:123
+#: src/Gateway/Gateway.php:142
 msgid "Nonce verification has failed"
 msgstr ""
 
-#: src/Gateway/Gateway.php:124
+#: src/Gateway/Gateway.php:143
 msgid "Error"
 msgstr ""
 
-#: src/Gateway/Gateway.php:137
+#: src/Gateway/Gateway.php:156
 msgid "Integrate ZarinPal for EDD does not support recurring items in cart."
 msgstr ""
 
-#: src/Gateway/Gateway.php:138
-#: src/Gateway/Gateway.php:167
-#: src/Gateway/Gateway.php:217
-#: src/Gateway/Gateway.php:231
-#: src/Gateway/Gateway.php:353
+#: src/Gateway/Gateway.php:157
+#: src/Gateway/Gateway.php:186
+#: src/Gateway/Gateway.php:263
+#: src/Gateway/Gateway.php:277
+#: src/Gateway/Gateway.php:401
 #: src/Helpers.php:82
 msgid "ZarinPal Gateway Error"
 msgstr ""
 
-#: src/Gateway/Gateway.php:166
+#: src/Gateway/Gateway.php:185
 msgid "Order creation failed before ZarinPal payment request initialization."
 msgstr ""
 
 #. translators: %1$s Order ID, %2$s: Customer name.
-#: src/Gateway/Gateway.php:198
+#: src/Gateway/Gateway.php:219
+#, php-format
 msgid "Order ID: %1$s, Customer Name: %2$s"
 msgstr ""
 
-#: src/Gateway/Gateway.php:216
-#: src/Gateway/Gateway.php:230
-msgid "There was an error while trying to connect to ZarinPal's API."
-msgstr ""
-
 #. translators: %1$s Error Code, %2$s: Parsed error message.
-#: src/Gateway/Gateway.php:235
-#: src/Gateway/Gateway.php:346
+#: src/Gateway/Gateway.php:255
+#: src/Gateway/Gateway.php:281
+#: src/Gateway/Gateway.php:394
+#, php-format
 msgid "Error Code %1$s, %2$s"
 msgstr ""
 
-#: src/Gateway/Gateway.php:245
+#: src/Gateway/Gateway.php:262
+#: src/Gateway/Gateway.php:276
+msgid "There was an error while trying to connect to ZarinPal's API."
+msgstr ""
+
+#: src/Gateway/Gateway.php:291
 msgid "ZarinPal payment process has been completed successfully."
 msgstr ""
 
-#: src/Gateway/Gateway.php:270
+#: src/Gateway/Gateway.php:317
 msgid "ZarinPal payment verification has begun."
 msgstr ""
 
-#: src/Gateway/Gateway.php:277
+#: src/Gateway/Gateway.php:324
 msgid "ZarinPal payment verification was stopped due to the missing required parameters."
 msgstr ""
 
-#: src/Gateway/Gateway.php:295
+#: src/Gateway/Gateway.php:342
 msgid "ZarinPal payment verification was stopped due to a mismatch in the verification hash."
 msgstr ""
 
-#: src/Gateway/Gateway.php:304
+#: src/Gateway/Gateway.php:351
 msgid "ZarinPal payment verification was stopped due to a missing order record."
 msgstr ""
 
-#: src/Gateway/Gateway.php:311
+#: src/Gateway/Gateway.php:358
 msgid "ZarinPal payment verification was stopped because the order is undergoing re-verification."
 msgstr ""
 
-#: src/Gateway/Gateway.php:343
+#: src/Gateway/Gateway.php:391
 msgid "ZarinPal payment verification failed!"
 msgstr ""
 
-#: src/Gateway/Gateway.php:366
+#: src/Gateway/Gateway.php:414
 msgid "ZarinPal payment verification has been completed successfully."
 msgstr ""
 
 #. translators: %1$s Reference ID, %2$s: Authority.
-#: src/Gateway/Gateway.php:380
+#: src/Gateway/Gateway.php:428
+#, php-format
 msgid "ZarinPal payment was successful. Reference ID: %1$s, Authority: %2$s."
 msgstr ""
 
@@ -191,104 +197,144 @@ msgstr ""
 msgid "Not Available"
 msgstr ""
 
-#: src/Helpers.php:162
+#: src/Helpers.php:165
 msgid "Incomplete information provided."
 msgstr ""
 
-#: src/Helpers.php:163
-msgid "Incorrect IP or merchant code."
-msgstr ""
-
-#: src/Helpers.php:164
-msgid "Payment with the requested amount is not possible due to Shaparak limitations."
-msgstr ""
-
-#: src/Helpers.php:165
-msgid "Merchant confirmation level is lower than the Silver level."
-msgstr ""
-
 #: src/Helpers.php:166
-msgid "There was a validation error."
+msgid "The callback url is not valid."
 msgstr ""
 
 #: src/Helpers.php:167
-msgid "Terminal is not valid. Please check your Merchant ID or IP address."
+msgid "Description is more than 500 characters."
 msgstr ""
 
 #: src/Helpers.php:168
-msgid "Terminal is not active. Please contact our support team."
+msgid "The payment amount is not valid."
 msgstr ""
 
 #: src/Helpers.php:169
-msgid "Too many attempts, please try again later."
+msgid "The referer ID is not valid."
 msgstr ""
 
 #: src/Helpers.php:170
-msgid "Terminal user is suspended."
+msgid "There was a validation error."
 msgstr ""
 
 #: src/Helpers.php:171
+msgid "Terminal is not valid. Please check your Merchant ID or IP address."
+msgstr ""
+
 #: src/Helpers.php:172
-msgid "Terminal user level is not valid."
+msgid "Terminal is not active. Please contact our support team."
 msgstr ""
 
 #: src/Helpers.php:173
-msgid "No financial operation found for this transaction."
+msgid "Too many attempts, please try again later."
 msgstr ""
 
 #: src/Helpers.php:174
-msgid "The transaction has been unsuccessful."
+msgid "Terminal limit reached."
 msgstr ""
 
 #: src/Helpers.php:175
-msgid "Transaction amount does not match the paid amount."
+msgid "The callback URL domain does not match the registered terminal domain."
 msgstr ""
 
 #: src/Helpers.php:176
-msgid "The transaction has reached the limit for the number or amount of divisions."
+msgid "Terminal user is suspended."
 msgstr ""
 
 #: src/Helpers.php:177
-#: src/Helpers.php:183
-msgid "An unexpected error has occurred. Please get in touch with the ZarinPal's customer care."
-msgstr ""
-
 #: src/Helpers.php:178
-msgid "No access permission to the relevant method."
+msgid "Terminal user level is not valid."
 msgstr ""
 
 #: src/Helpers.php:179
-msgid "The provided data related to AdditionalData is invalid."
+msgid "The referrer address does not match the registered domain."
 msgstr ""
 
 #: src/Helpers.php:180
-msgid "The valid lifespan of the payment ID must be between 30 minutes to 45 days."
+msgid "Terminal user transactions are banned."
 msgstr ""
 
 #: src/Helpers.php:181
-msgid "The amount paid is different from the amount sent in the verification method."
+msgid "No financial operation found for this transaction."
 msgstr ""
 
 #: src/Helpers.php:182
-msgid "Failed payment."
+msgid "The transaction has been unsuccessful."
+msgstr ""
+
+#: src/Helpers.php:183
+msgid "Transaction amount does not match the paid amount."
 msgstr ""
 
 #: src/Helpers.php:184
-msgid "The payment does not belong to this merchant code."
+msgid "The transaction has reached the limit for the number or amount of divisions."
 msgstr ""
 
 #: src/Helpers.php:185
-msgid "Invalid authority."
+#: src/Helpers.php:191
+msgid "An unexpected error has occurred. Please get in touch with the ZarinPal's customer care."
 msgstr ""
 
 #: src/Helpers.php:186
-msgid "The operation was successful."
+msgid "Invalid extra params, expire_in is not valid."
 msgstr ""
 
 #: src/Helpers.php:187
-msgid "The payment operation was successful, and the payment verification for the transaction has been done before."
+msgid "The maximum valid amount per payment is 100,000,000 Toman."
+msgstr ""
+
+#: src/Helpers.php:188
+msgid "The valid lifespan of the payment ID must be between 30 minutes to 45 days."
+msgstr ""
+
+#: src/Helpers.php:189
+msgid "The amount paid is different from the amount sent in the verification method."
+msgstr ""
+
+#: src/Helpers.php:190
+msgid "Failed payment."
+msgstr ""
+
+#: src/Helpers.php:192
+msgid "The payment does not belong to this merchant code."
+msgstr ""
+
+#: src/Helpers.php:193
+msgid "Invalid authority."
+msgstr ""
+
+#: src/Helpers.php:194
+msgid "The payment request was not found."
 msgstr ""
 
 #: src/Helpers.php:195
+msgid "Session can not be reversed with bank."
+msgstr ""
+
+#: src/Helpers.php:196
+msgid "Session was not successful or is reversed before."
+msgstr ""
+
+#: src/Helpers.php:197
+msgid "The terminal IP address is not set."
+msgstr ""
+
+#: src/Helpers.php:198
+msgid "The maximum time allowed to reverse this transaction has elapsed."
+msgstr ""
+
+#: src/Helpers.php:199
+msgid "The operation was successful."
+msgstr ""
+
+#: src/Helpers.php:200
+msgid "The payment operation was successful, and the payment verification for the transaction has been done before."
+msgstr ""
+
+#: src/Helpers.php:208
 msgid "An unknown error occurred while connecting to the ZarinPal gateway."
 msgstr ""

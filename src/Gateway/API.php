@@ -16,46 +16,51 @@ class API {
 	 * The API endpoint for the live environment.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Updated to v4 API.
 	 *
 	 * @var string
 	 */
-	const LIVE_ENDPOINT = 'https://www.zarinpal.com/pg/rest/WebGate/';
+	const LIVE_ENDPOINT = 'https://payment.zarinpal.com/pg/v4/payment/';
 
 	/**
 	 * The API endpoint for the sandbox environment.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Use ZarinPal's official sandbox environment.
 	 *
 	 * @var string
 	 */
-	const TEST_ENDPOINT = 'https://sandbox.alireza1219.ir/zarinpal/pg/rest/WebGate/';
+	const TEST_ENDPOINT = 'https://sandbox.zarinpal.com/pg/v4/payment/';
 
 	/**
 	 * The payment page for the live environment.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Updated to the latest endpoint.
 	 *
 	 * @var string
 	 */
-	const LIVE_PAYMENT_PAGE = 'https://www.zarinpal.com/pg/StartPay/';
+	const LIVE_PAYMENT_PAGE = 'https://payment.zarinpal.com/pg/StartPay/';
 
 	/**
 	 * The payment page for the sandbox environment.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Use ZarinPal's official sandbox environment.
 	 *
 	 * @var string
 	 */
-	const TEST_PAYMENT_PAGE = 'https://sandbox.alireza1219.ir/zarinpal/pg/StartPay/';
+	const TEST_PAYMENT_PAGE = 'https://sandbox.zarinpal.com/pg/StartPay/';
 
 	/**
 	 * Valid API actions.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Adapted actions to v4 API changes.
 	 *
 	 * @var array
 	 */
-	const VALID_ACTIONS = [ 'PaymentVerification', 'PaymentRequest' ];
+	const VALID_ACTIONS = [ 'verify', 'request' ];
 
 	/**
 	 * ZarinPal payment gateway Merchant ID.
@@ -93,8 +98,9 @@ class API {
 	 * Send a request to the API.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Adapted to v4 API changes.
 	 *
-	 * @param string $action  The API action (PaymentRequest|PaymentVerification).
+	 * @param string $action  The API action (request|verify).
 	 * @param array  $params  Request parameters.
 	 * @param int    $timeout Request timeout in seconds.
 	 *
@@ -122,7 +128,7 @@ class API {
 		$params = array_merge(
 			$params,
 			[
-				'MerchantID' => $this->merchant_id,
+				'merchant_id' => $this->merchant_id,
 			]
 		);
 
@@ -130,7 +136,7 @@ class API {
 		$args = [
 			'method'     => 'POST',
 			'body'       => wp_json_encode( $params ),
-			'user-agent' => 'ZarinPal Rest Api v1',
+			'user-agent' => $this->get_user_agent(),
 			'timeout'    => $timeout,
 			'headers'    => [
 				'content-type' => 'application/json',
@@ -162,11 +168,12 @@ class API {
 	 * Handle the API response.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Return parsed response data for non-200 HTTP responses when available.
 	 *
 	 * @param WP_Error|array $response The response from wp_remote_request.
 	 * @param string         $action   The API action that was performed.
 	 *
-	 * @return array|false Decoded response data or false on error
+	 * @return array|false Decoded response data or false on error.
 	 */
 	private function handle_response( $response, $action ) {
 
@@ -184,8 +191,14 @@ class API {
 			return false;
 		}
 
+		// Get and decode response body.
+		$body       = wp_remote_retrieve_body( $response );
+		$data       = json_decode( $body, true );
+		$json_error = json_last_error();
+
 		// Check status code.
 		$status_code = wp_remote_retrieve_response_code( $response );
+
 		if ( $status_code !== 200 ) {
 
 			Helpers::log_error(
@@ -199,17 +212,16 @@ class API {
 				[
 					'action' => $action,
 					'status' => $status_code,
+					'body'   => $body,
 				],
 				$this->order_id
 			);
-			return false;
+
+			return JSON_ERROR_NONE === $json_error && is_array( $data ) ? $data : false;
 		}
 
-		// Get and decode response body.
-		$body = wp_remote_retrieve_body( $response );
-		$data = json_decode( $body, true );
-
-		if ( json_last_error() !== JSON_ERROR_NONE ) {
+		// Check for JSON decode errors.
+		if ( JSON_ERROR_NONE !== $json_error ) {
 
 			Helpers::log_error(
 				esc_html__( 'Failed to decode ZarinPal API response', 'integrate-zarinpal-edd' ),
@@ -221,6 +233,7 @@ class API {
 				],
 				$this->order_id
 			);
+
 			return false;
 		}
 
@@ -242,6 +255,7 @@ class API {
 	 * Create a payment request.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Adapted to v4 API changes.
 	 *
 	 * @param array $payment_data Payment data.
 	 *
@@ -249,13 +263,14 @@ class API {
 	 */
 	public function create_payment( $payment_data ) {
 
-		return $this->send_request( 'PaymentRequest', $payment_data );
+		return $this->send_request( 'request', $payment_data );
 	}
 
 	/**
 	 * Verify a payment.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Adapted to v4 API changes.
 	 *
 	 * @param array $verification_data Verification data.
 	 *
@@ -263,7 +278,7 @@ class API {
 	 */
 	public function verify_payment( $verification_data ) {
 
-		return $this->send_request( 'PaymentVerification', $verification_data );
+		return $this->send_request( 'verify', $verification_data );
 	}
 
 	/**
@@ -316,5 +331,23 @@ class API {
 		$base_url = edd_is_test_mode() ? self::TEST_ENDPOINT : self::LIVE_ENDPOINT;
 
 		return $base_url . $action . '.json';
+	}
+
+	/**
+	 * Generate a user agent based on the current configuration.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string The generated user agent.
+	 */
+	private function get_user_agent() {
+
+		// Collect versions.
+		$plugin_version    = defined( 'INTEGRATE_ZARINPAL_EDD_VERSION' ) ? INTEGRATE_ZARINPAL_EDD_VERSION : 'N/A';
+		$edd_version       = defined( 'EDD_VERSION' ) ? EDD_VERSION : 'N/A';
+		$wordpress_version = get_bloginfo( 'version' );
+		$php_version       = defined( 'PHP_VERSION' ) ? PHP_VERSION : 'N/A';
+
+		return "Integrate ZarinPal EDD $plugin_version (EDD $edd_version; WordPress $wordpress_version; PHP $php_version)";
 	}
 }

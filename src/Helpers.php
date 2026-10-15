@@ -152,6 +152,9 @@ class Helpers {
 	/**
 	 * Parse ZarinPal error by the given code.
 	 *
+	 * @since 1.0.0
+	 * @since 1.2.0 Updated error codes to match ZarinPal's latest documentation.
+	 *
 	 * @param string $code ZarinPal error code.
 	 *
 	 * @return string A proper message for the given error code.
@@ -160,29 +163,39 @@ class Helpers {
 
 		$error = [
 			'-1'  => esc_attr__( 'Incomplete information provided.', 'integrate-zarinpal-edd' ),
-			'-2'  => esc_attr__( 'Incorrect IP or merchant code.', 'integrate-zarinpal-edd' ),
-			'-3'  => esc_attr__( 'Payment with the requested amount is not possible due to Shaparak limitations.', 'integrate-zarinpal-edd' ),
-			'-4'  => esc_attr__( 'Merchant confirmation level is lower than the Silver level.', 'integrate-zarinpal-edd' ),
+			'-2'  => esc_attr__( 'The callback url is not valid.', 'integrate-zarinpal-edd' ),
+			'-3'  => esc_attr__( 'Description is more than 500 characters.', 'integrate-zarinpal-edd' ),
+			'-4'  => esc_attr__( 'The payment amount is not valid.', 'integrate-zarinpal-edd' ),
+			'-5'  => esc_attr__( 'The referer ID is not valid.', 'integrate-zarinpal-edd' ),
 			'-9'  => esc_attr__( 'There was a validation error.', 'integrate-zarinpal-edd' ),
 			'-10' => esc_attr__( 'Terminal is not valid. Please check your Merchant ID or IP address.', 'integrate-zarinpal-edd' ),
 			'-11' => esc_attr__( 'Terminal is not active. Please contact our support team.', 'integrate-zarinpal-edd' ),
 			'-12' => esc_attr__( 'Too many attempts, please try again later.', 'integrate-zarinpal-edd' ),
+			'-13' => esc_attr__( 'Terminal limit reached.', 'integrate-zarinpal-edd' ),
+			'-14' => esc_attr__( 'The callback URL domain does not match the registered terminal domain.', 'integrate-zarinpal-edd' ),
 			'-15' => esc_attr__( 'Terminal user is suspended.', 'integrate-zarinpal-edd' ),
 			'-16' => esc_attr__( 'Terminal user level is not valid.', 'integrate-zarinpal-edd' ),
 			'-17' => esc_attr__( 'Terminal user level is not valid.', 'integrate-zarinpal-edd' ),
+			'-18' => esc_attr__( 'The referrer address does not match the registered domain.', 'integrate-zarinpal-edd' ),
+			'-19' => esc_attr__( 'Terminal user transactions are banned.', 'integrate-zarinpal-edd' ),
 			'-21' => esc_attr__( 'No financial operation found for this transaction.', 'integrate-zarinpal-edd' ),
 			'-22' => esc_attr__( 'The transaction has been unsuccessful.', 'integrate-zarinpal-edd' ),
 			'-33' => esc_attr__( 'Transaction amount does not match the paid amount.', 'integrate-zarinpal-edd' ),
 			'-34' => esc_attr__( 'The transaction has reached the limit for the number or amount of divisions.', 'integrate-zarinpal-edd' ),
 			'-39' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'integrate-zarinpal-edd' ),
-			'-40' => esc_attr__( 'No access permission to the relevant method.', 'integrate-zarinpal-edd' ),
-			'-41' => esc_attr__( 'The provided data related to AdditionalData is invalid.', 'integrate-zarinpal-edd' ),
+			'-40' => esc_attr__( 'Invalid extra params, expire_in is not valid.', 'integrate-zarinpal-edd' ),
+			'-41' => esc_attr__( 'The maximum valid amount per payment is 100,000,000 Toman.', 'integrate-zarinpal-edd' ),
 			'-42' => esc_attr__( 'The valid lifespan of the payment ID must be between 30 minutes to 45 days.', 'integrate-zarinpal-edd' ),
 			'-50' => esc_attr__( 'The amount paid is different from the amount sent in the verification method.', 'integrate-zarinpal-edd' ),
 			'-51' => esc_attr__( 'Failed payment.', 'integrate-zarinpal-edd' ),
 			'-52' => esc_attr__( 'An unexpected error has occurred. Please get in touch with the ZarinPal\'s customer care.', 'integrate-zarinpal-edd' ),
 			'-53' => esc_attr__( 'The payment does not belong to this merchant code.', 'integrate-zarinpal-edd' ),
 			'-54' => esc_attr__( 'Invalid authority.', 'integrate-zarinpal-edd' ),
+			'-55' => esc_attr__( 'The payment request was not found.', 'integrate-zarinpal-edd' ),
+			'-60' => esc_attr__( 'Session can not be reversed with bank.', 'integrate-zarinpal-edd' ),
+			'-61' => esc_attr__( 'Session was not successful or is reversed before.', 'integrate-zarinpal-edd' ),
+			'-62' => esc_attr__( 'The terminal IP address is not set.', 'integrate-zarinpal-edd' ),
+			'-63' => esc_attr__( 'The maximum time allowed to reverse this transaction has elapsed.', 'integrate-zarinpal-edd' ),
 			'100' => esc_attr__( 'The operation was successful.', 'integrate-zarinpal-edd' ),
 			'101' => esc_attr__( 'The payment operation was successful, and the payment verification for the transaction has been done before.', 'integrate-zarinpal-edd' ),
 		];

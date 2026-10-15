@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Alireza Barani",
-            "email": "baranali02@gmail.com"
+            "email": "ping@alireza1219.ir"
         }
     ],
     "autoload": {
@@ -15,8 +15,8 @@
     },
     "require": {},
     "require-dev": {
-        "wp-coding-standards/wpcs": "^3.1",
-        "phpcompatibility/phpcompatibility-wp": "^2.1"
+        "wp-coding-standards/wpcs": "^3.4.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1.8"
     },
     "config": {
         "allow-plugins": {
@@ -25,6 +25,8 @@
     },
     "scripts": {
         "format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
-        "lint": "phpcs --standard=phpcs.xml.dist"
+        "lint": "phpcs --standard=phpcs.xml.dist",
+        "make-pot": "wp i18n make-pot . --ignore-domain",
+        "update-po": "wp i18n update-po languages/integrate-zarinpal-edd.pot languages/integrate-zarinpal-edd-fa_IR.po"
     }
 }
