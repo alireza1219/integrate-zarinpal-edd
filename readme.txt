@@ -2,7 +2,7 @@
 Contributors: alireza1219
 Tags: zarinpal, easy digital downloads, edd, زرین پال, ایزی دیجیتال دانلودز
 Requires at least: 6.7
-Tested up to: 7.1.3
+Tested up to: 7.1
 Requires PHP: 8.0
 Stable Tag: 1.2.0
 License: GPLv2 or later
